@@ -29,7 +29,7 @@
       </div>
 
       <div class="flex flex-col gap-4 lg:gap-8 w-full lg:w-auto">
-        <div class="bg-glass1 w-full lg:w-182.5 h-auto lg:h-47.5 p-6 lg:p-8">
+        <div class="bg-glass1 w-full lg:w-182.5 h-auto lg:h-47.5 py-5 lg:py-5 px-6">
           <p class="font-montserrat font-bold italic text-xl lg:text-3xl pb-2">
             Мониторинг разных площадок
           </p>
@@ -39,7 +39,7 @@
           </p>
         </div>
 
-        <div class="bg-glass1 w-full lg:w-182.5 h-auto lg:h-47.5 p-6 lg:p-8">
+        <div class="bg-glass1 w-full lg:w-182.5 h-auto lg:h-47.5 py-5 lg:py-5 px-6">
           <p class="font-montserrat font-bold italic text-xl lg:text-3xl pb-2">Доступные цены</p>
           <p class="font-montserrat font-light text-base lg:text-2xl">
             Наша система сделана таким образом, что мы<br />

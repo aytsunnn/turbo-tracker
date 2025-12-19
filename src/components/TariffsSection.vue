@@ -11,7 +11,7 @@
     </div>
 
     <div class="flex flex-col items-center px-4 lg:px-0">
-      <div class="flex flex-col lg:flex-row justify-center items-center gap-6 lg:gap-4">
+      <div class="flex flex-col lg:flex-row justify-center items-center gap-2 lg:gap-0">
         <!-- Free Card -->
         <div
           class="w-full lg:w-123 h-auto lg:h-148 rounded-2xl p-6 lg:p-8 flex flex-col justify-between relative overflow-hidden"
@@ -34,31 +34,33 @@
             <div class="w-full lg:w-90 h-0.5 bg-white/20 mb-4" />
             <ul class="font-montserrat text-base lg:text-xl space-y-3 lg:space-y-4">
               <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>Скорость мониторинга 1 секунда</span>
               </li>
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>
                   Мониторинг по выбранным<br />
                   фильтрам каждую секунду.
                 </span>
               </li>
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>Уведомления в Telegram</span>
               </li>
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>Сервис поддержки</span>
               </li>
             </ul>
           </div>
 
           <button
-            class="bg-blue-custom rounded-full items-center justify-center w-full lg:w-61.5 h-16 lg:h-20.75 mt-6 lg:mt-8 mx-auto py-3"
+            class="bg-blue-custom rounded-full flex items-center justify-center w-full lg:w-61.5 h-16 lg:h-20.75 mt-6 lg:mt-8 mx-auto py-3"
           >
-            <p class="font-inter font-semibold text-lg lg:text-xl">Подключить<br />Бесплатно</p>
+            <p class="font-inter font-semibold text-lg lg:text-xl text-center">
+              Подключить<br />Бесплатно
+            </p>
           </button>
         </div>
 
@@ -85,23 +87,23 @@
             </div>
             <div class="w-full lg:w-90 h-0.5 bg-white/20 mb-4" />
             <ul class="font-montserrat text-base lg:text-xl space-y-3 lg:space-y-4">
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>Скорость мониторинга 1 секунда</span>
               </li>
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>
                   Мониторинг по выбранным<br />
                   фильтрам каждую секунду.
                 </span>
               </li>
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>Уведомления в Telegram</span>
               </li>
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>Сервис поддержки</span>
               </li>
             </ul>
@@ -133,26 +135,26 @@
             </p>
             <div class="w-full lg:w-90 h-0.5 bg-white/20 mb-4" />
             <ul class="font-montserrat text-base lg:text-xl space-y-3 lg:space-y-4">
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span
                   >Выбери свою скорость,<br />
                   подходящую под твой рынок</span
                 >
               </li>
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>
                   Скорость мониторинга от 0.1 сек<br />
                   до часа
                 </span>
               </li>
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>Командное подключение</span>
               </li>
-              <li class="flex items-start lg:items-center gap-3">
-                <img class="w-8 h-8 lg:w-12 lg:h-12 mt-1" src="/images/check.svg" alt="check" />
+              <li class="flex items-start lg:items-start gap-3">
+                <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>Покупка категорий</span>
               </li>
             </ul>
@@ -160,7 +162,7 @@
           <button
             class="bg-blue-custom rounded-full items-center justify-center w-full lg:w-61.5 h-16 lg:h-20.75 mt-6 lg:mt-8 mx-auto py-3"
           >
-            <p class="font-inter font-semibold text-lg lg:text-xl">Посмотреть<br />Бесплатно</p>
+            <p class="font-inter font-semibold text-lg lg:text-xl">Посмотреть</p>
           </button>
         </div>
       </div>

@@ -15,7 +15,9 @@
           <p
             class="font-montserrat font-light text-sm lg:text-base leading-relaxed text-center lg:text-left"
           >
-            Turbo tracker помогает вам мгновенно узнавать о новых предложениях на популярных
+            Turbo tracker помогает вам<br />
+            мгновенно узнавать о новых<br />
+            предложениях на популярных<br />
             площадках.
           </p>
         </div>
