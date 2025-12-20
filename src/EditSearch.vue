@@ -85,96 +85,103 @@
               <!-- Основной контейнер -->
               <div
                 class="w-full bg-white/10 border border-white/20 rounded-2xl overflow-hidden transition-all duration-300"
-                :class="{
-                  'h-[72px]': !showTariffDropdown,
-                  'h-auto max-h-[900px]': showTariffDropdown,
-                }"
               >
-                <!-- Список тарифов -->
-                <div v-if="showTariffDropdown" class="px-6 py-4 space-y-3">
-                  <!-- Бесплатный тариф -->
-                  <div
-                    @click="tempSelectedTariff = 'free'"
-                    class="p-4 rounded-xl border cursor-pointer transition"
-                    :class="{
-                      'border-blue-custom bg-blue-custom/10': tempSelectedTariff === 'free',
-                      'border-white/20 hover:border-white/40': tempSelectedTariff !== 'free',
-                    }"
-                  >
-                    <div class="flex justify-between items-start">
-                      <div class="flex flex-col">
-                        <span class="font-inter font-semibold text-white">Бесплатный</span>
-                      </div>
-                      <span class="font-inter font-bold text-white">0 ₽</span>
-                    </div>
+                <!-- Верхняя часть -->
+                <div
+                  @click="showTariffDropdown = !showTariffDropdown"
+                  class="px-6 py-5 text-white flex items-center cursor-pointer hover:bg-white/5 transition"
+                  :class="{
+                    'justify-between': !showTariffDropdown,
+                    'justify-end': showTariffDropdown,
+                  }"
+                >
+                  <!-- Текст показываем только когда dropdown закрыт -->
+                  <div v-if="!showTariffDropdown" class="flex flex-col">
+                    <span class="font-inter font-medium text-lg">
+                      {{ selectedTariffName }}
+                    </span>
                   </div>
 
-                  <!-- Стандартные тарифы -->
-                  <div class="space-y-3">
-                    <h3 class="font-inter font-semibold text-white mb-2">Стандартные</h3>
+                  <!-- Стрелка всегда -->
+                  <img
+                    src="/images/keyboard_arrow_up.svg"
+                    class="w-9.5 h-9.5 transition-transform duration-300"
+                    :style="{ transform: showTariffDropdown ? 'rotate(180deg)' : 'rotate(0deg)' }"
+                    alt="arrow"
+                  />
+                </div>
+
+                <!-- Контент с плавной анимацией -->
+                <div
+                  ref="dropdownContent"
+                  class="transition-all duration-300 overflow-hidden"
+                  :style="{
+                    'max-height': showTariffDropdown ? getCalculatedHeight + 'px' : '0px',
+                    opacity: showTariffDropdown ? '1' : '0',
+                  }"
+                >
+                  <!-- Список тарифов -->
+                  <div class="px-6 py-4 space-y-6">
+                    <!-- Группы тарифов -->
                     <div
-                      v-for="tariff in standardTariffs"
-                      :key="tariff.id"
-                      @click="tempSelectedTariff = tariff.id"
-                      class="p-4 rounded-xl border cursor-pointer transition"
-                      :class="{
-                        'border-blue-custom bg-blue-custom/10': tempSelectedTariff === tariff.id,
-                        'border-white/20 hover:border-white/40': tempSelectedTariff !== tariff.id,
-                      }"
+                      v-for="tariffGroup in tariffGroups"
+                      :key="tariffGroup.id"
+                      class="space-y-3"
                     >
-                      <div class="flex justify-between items-start">
-                        <div class="flex flex-col">
-                          <span class="font-inter font-semibold text-white">{{ tariff.name }}</span>
-                          <span class="text-gray-400 text-sm mt-1"
-                            >Данных тарифов хватит для большинства рынков</span
-                          >
+                      <!-- Заголовок группы и описание -->
+                      <div class="gap-2 flex flex-row items-center">
+                        <h3 class="font-inter font-semibold text-white text-lg">
+                          {{ tariffGroup.name }}
+                        </h3>
+                        <p class="text-gray-400 text-sm mt-1">{{ tariffGroup.description }}</p>
+                      </div>
+
+                      <!-- Тарифы в группе -->
+                      <div class="space-y-2">
+                        <div
+                          v-for="tariff in tariffGroup.tariffs"
+                          :key="tariff.id"
+                          @click="tempSelectedTariff = tariff.id"
+                          class="p-4 rounded-xl border cursor-pointer transition flex justify-between items-center"
+                          :class="{
+                            'border-blue-custom bg-blue-custom/10':
+                              tempSelectedTariff === tariff.id,
+                            'border-white/20 hover:border-white/40':
+                              tempSelectedTariff !== tariff.id,
+                          }"
+                        >
+                          <!-- Название тарифа слева -->
+                          <div class="font-inter font-semibold text-white text-base">
+                            {{ tariff.name }}
+                          </div>
+
+                          <!-- Стоимость справа -->
+                          <div class="font-inter font-bold text-white text-lg">
+                            {{ tariff.price }}
+                          </div>
                         </div>
-                        <span class="font-inter font-bold text-white">{{ tariff.price }}</span>
                       </div>
                     </div>
-                  </div>
 
-                  <!-- Турбо тарифы -->
-                  <div class="space-y-3">
-                    <h3 class="font-inter font-semibold text-white mb-2">Турбо</h3>
-                    <div
-                      v-for="tariff in turboTariffs"
-                      :key="tariff.id"
-                      @click="tempSelectedTariff = tariff.id"
-                      class="p-4 rounded-xl border cursor-pointer transition"
-                      :class="{
-                        'border-blue-custom bg-blue-custom/10': tempSelectedTariff === tariff.id,
-                        'border-white/20 hover:border-white/40': tempSelectedTariff !== tariff.id,
-                      }"
-                    >
-                      <div class="flex justify-between items-start">
-                        <div class="flex flex-col">
-                          <span class="font-inter font-semibold text-white">{{ tariff.name }}</span>
-                          <span class="text-gray-400 text-sm mt-1">{{ tariff.description }}</span>
-                        </div>
-                        <span class="font-inter font-bold text-white">{{ tariff.price }}</span>
-                      </div>
+                    <!-- Примечание -->
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/10">
+                      <p class="text-gray-400 text-sm">
+                        <span class="font-semibold text-white">Хотите изменить тариф?</span><br />
+                        Напишите в нашу поддержку. Вы можете перейти на другой тариф в любой момент
+                        – мы пересчитаем неиспользованные дни и сделаем перерасчёт оплаты.
+                      </p>
                     </div>
-                  </div>
 
-                  <!-- Примечание -->
-                  <div class="p-4 bg-white/5 rounded-xl border border-white/10 mb-4">
-                    <p class="text-gray-400 text-sm">
-                      <span class="font-semibold text-white">Хотите изменить тариф?</span><br />
-                      Напишите в нашу поддержку. Вы можете перейти на другой тариф в любой момент –
-                      мы пересчитаем неиспользованные дни и сделаем перерасчёт оплаты.
-                    </p>
-                  </div>
-
-                  <!-- Кнопка выбора тарифа -->
-                  <div class="pb-4">
-                    <button
-                      @click="applyTariff"
-                      :disabled="!tempSelectedTariff"
-                      class="w-full py-3 bg-blue-custom hover:bg-blue-600 text-white font-inter font-semibold rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      Выбрать тариф
-                    </button>
+                    <!-- Кнопка выбора тарифа -->
+                    <div class="pt-2">
+                      <button
+                        @click="applyTariff"
+                        :disabled="!tempSelectedTariff"
+                        class="w-full py-3 bg-blue-custom hover:bg-blue-600 text-white font-inter font-semibold rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        Выбрать тариф
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -193,7 +200,7 @@
             <!-- Правая колонка -->
             <div class="flex-1">
               <textarea
-                v-model="filters.includeKeywords"
+                v-model="searchFilters.includeKeywords"
                 class="w-full min-h-32 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom"
                 placeholder="Вставляйте целевые слова через запятую: собственник, владелец..."
               ></textarea>
@@ -213,7 +220,7 @@
             <!-- Правая колонка -->
             <div class="flex-1">
               <textarea
-                v-model="filters.excludeKeywords"
+                v-model="searchFilters.excludeKeywords"
                 class="w-full min-h-32 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom"
                 placeholder="Вставляйте минус слова через запятую: автосалон, риелтор, магазин..."
               ></textarea>
@@ -240,7 +247,7 @@
             <!-- Правая колонка -->
             <div class="flex-1">
               <textarea
-                v-model="filters.blockedSellers"
+                v-model="searchFilters.blockedSellers"
                 class="w-full min-h-32 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom"
                 placeholder="Вставляйте ID продавцов через запятую: 123456789, 987654321..."
               ></textarea>
@@ -286,11 +293,11 @@
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
-              <span>{{ searchId === 'new' ? 'Создать поиск' : 'Сохранить изменения' }}</span>
+              <span>{{ isNewSearch ? 'Создать поиск' : 'Сохранить изменения' }}</span>
             </button>
 
             <button
-              v-if="searchId !== 'new'"
+              v-if="!isNewSearch"
               type="button"
               @click="deleteSearch"
               class="flex-1 bg-red-500/20 text-red-300 rounded-2xl h-14 font-inter font-semibold hover:bg-red-500/30 transition flex items-center justify-center gap-2"
@@ -330,10 +337,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
+
+interface SearchData {
+  id: number
+  name: string
+  url: string
+  tariff: string
+}
+
+interface SearchFilters {
+  includeKeywords: string
+  excludeKeywords: string
+  blockedSellers: string
+  minPrice: string
+  maxPrice: string
+  region: string
+}
+
+interface Tariff {
+  id: string
+  name: string
+  price: string
+  description: string
+  groupId: string
+}
+
+interface TariffGroup {
+  id: string
+  name: string
+  description: string
+  tariffs: Tariff[]
+}
 
 const route = useRoute()
 const router = useRouter()
@@ -342,85 +380,175 @@ const showLinkHelp = ref(false)
 const showSellerHelp = ref(false)
 
 // ID поиска
-const searchId = computed(() => route.params.id)
+const searchId = computed(() => route.params.id as string)
 const isNewSearch = computed(() => searchId.value === 'new')
 
 // Тарифы
-const tariffs = ref([
-  { id: 'free', name: 'БЕСПЛАТНЫЙ', description: '24 часа, скорость 5 сек', price: '0₽' },
-  { id: 'standard', name: 'СТАНДАРТ', description: '1 секунда', price: '790₽/месяц' },
-  { id: 'premium', name: 'ПРЕМИУМ', description: '0.1 секунды', price: '1390₽/месяц' },
-  { id: 'pro', name: 'ПРО', description: '0.05 секунды + API', price: '2990₽/месяц' },
-])
-
 const showTariffDropdown = ref(false)
-const selectedTariff = ref('free')
+const selectedTariff = ref<string>('free_trial') // текущий выбранный тариф
+const tempSelectedTariff = ref<string | null>(null) // временный выбор в dropdown
 
-const standardTariffs = ref([
+// Структура данных для тарифов
+const tariffGroups = ref<TariffGroup[]>([
   {
-    id: '30sec',
-    name: '30 секунд',
-    price: '200 ₽',
-    description: 'Данных тарифов хватит для большинства рынков',
+    id: 'free',
+    name: 'Бесплатный',
+    description: 'Бесплатный доступ к тарифу 1 секунда на 24 часа',
+    tariffs: [
+      {
+        id: 'free_trial',
+        name: 'Бесплатный доступ на 24 часа',
+        price: '0 ₽',
+        description: 'Бесплатный доступ к тарифу 1 секунда на 24 часа',
+        groupId: 'free',
+      },
+    ],
   },
   {
-    id: '10sec',
-    name: '10 секунд',
-    price: '790 ₽',
-    description: 'Данных тарифов хватит для большинства рынков',
+    id: 'standard',
+    name: 'Стандартные',
+    description:
+      'Данных тарифов хватит для большинства рынков. У вас будет большое преимущество над конкурентами',
+    tariffs: [
+      {
+        id: 'standard_30s',
+        name: '30 секунд',
+        price: '200 ₽',
+        description: 'Данных тарифов хватит для большинства рынков',
+        groupId: 'standard',
+      },
+      {
+        id: 'standard_10s',
+        name: '10 секунд',
+        price: '790 ₽',
+        description: 'Данных тарифов хватит для большинства рынков',
+        groupId: 'standard',
+      },
+      {
+        id: 'standard_1s',
+        name: '1 секунда',
+        price: '1390 ₽',
+        description: 'Данных тарифов хватит для большинства рынков',
+        groupId: 'standard',
+      },
+    ],
   },
   {
-    id: '1sec',
-    name: '1 секунда',
-    price: '1390 ₽',
-    description: 'Данных тарифов хватит для большинства рынков',
+    id: 'turbo',
+    name: 'Турбо',
+    description:
+      'Специально под ваш поиск выделяется отдельная виртуальная машина. Её мощности хватает чтобы обновлять и присылать уведомления на самой быстрой скорости. Кроме скорости вы получаете безотказную работу',
+    tariffs: [
+      {
+        id: 'turbo_0.5s',
+        name: '0.5 секунды',
+        price: '9900 ₽',
+        description: 'Специально под ваш поиск выделяется отдельная виртуальная машина',
+        groupId: 'turbo',
+      },
+      {
+        id: 'turbo_0.1s',
+        name: '0.1 секунды',
+        price: '15900 ₽',
+        description: 'Специально под ваш поиск выделяется отдельная виртуальная машина',
+        groupId: 'turbo',
+      },
+    ],
   },
 ])
 
-const turboTariffs = ref([
-  {
-    id: '0.5sec',
-    name: '0.5 секунды',
-    price: '9900 ₽',
-    description: 'Специально под ваш поиск выделяется отдельная виртуальная машина',
-  },
-  {
-    id: '0.1sec',
-    name: '0.1 секунды',
-    price: '15900 ₽',
-    description: 'Специально под ваш поиск выделяется отдельная виртуальная машина',
-  },
-])
+// Получить все тарифы в одном массиве
+const allTariffs = computed(() => {
+  return tariffGroups.value.flatMap((group) => group.tariffs)
+})
 
+// Найти тариф по ID
+function findTariffById(tariffId: string): Tariff | null {
+  if (tariffId === 'free_trial') {
+    return {
+      id: 'free_trial',
+      name: 'Бесплатный доступ на 24 часа',
+      price: '0 ₽',
+      description: 'Бесплатный доступ к тарифу 1 секунда на 24 часа',
+      groupId: 'free',
+    }
+  }
+  return allTariffs.value.find((tariff) => tariff.id === tariffId) || null
+}
+
+// Получить группу по ID тарифа
+function findGroupByTariffId(tariffId: string): TariffGroup | null {
+  return (
+    tariffGroups.value.find((group) => group.tariffs.some((tariff) => tariff.id === tariffId)) ||
+    null
+  )
+}
+
+// Вычисляем высоту на основе количества элементов
+const getCalculatedHeight = computed(() => {
+  let height = 0
+
+  // Высота каждого элемента (примерные значения в пикселях)
+  const GROUP_HEADER = 30 // заголовок группы
+  const GROUP_DESCRIPTION = 40 // описание группы
+  const TARIFF_ITEM = 70 // один тариф
+  const NOTE_BLOCK = 120 // блок примечания
+  const BUTTON = 60 // кнопка
+  const PADDING = 32 // отступы (px-6 py-4 = 24px + 16px = 40px)
+  const GAP = 24 // промежутки между группами (space-y-6 = 1.5rem = 24px)
+
+  tariffGroups.value.forEach((group) => {
+    height += GROUP_HEADER + GROUP_DESCRIPTION + group.tariffs.length * TARIFF_ITEM
+  })
+
+  return height + NOTE_BLOCK + BUTTON + PADDING + tariffGroups.value.length * GAP
+})
+
+// Заголовок с названием выбранного тарифа
 const selectedTariffName = computed(() => {
-  if (selectedTariff.value === 'free') return 'Бесплатный'
-  const allTariffs = [...standardTariffs.value, ...turboTariffs.value]
-  const tariff = allTariffs.find((t) => t.id === selectedTariff.value)
+  const tariff = findTariffById(selectedTariff.value)
   return tariff ? tariff.name : 'Выберите тариф'
 })
 
+// Описание выбранного тарифа (из группы)
 const selectedTariffDescription = computed(() => {
-  if (selectedTariff.value === 'free') return 'Бесплатный доступ к тарифу 1 секунда на 24 часа'
-  const allTariffs = [...standardTariffs.value, ...turboTariffs.value]
-  const tariff = allTariffs.find((t) => t.id === selectedTariff.value)
-  return tariff ? tariff.description : ''
+  const group = findGroupByTariffId(selectedTariff.value)
+  return group ? group.description : 'Выберите подходящий тариф'
 })
 
-function selectTariff(id) {
-  selectedTariff.value = id
-  showTariffDropdown.value = false
+// Сбрасываем временный выбор при открытии dropdown
+watch(showTariffDropdown, (newVal) => {
+  if (newVal) {
+    tempSelectedTariff.value = null // сбрасываем при открытии
+  }
+})
+
+// Функция применения тарифа
+function applyTariff() {
+  if (tempSelectedTariff.value) {
+    selectedTariff.value = tempSelectedTariff.value
+    showTariffDropdown.value = false
+
+    // Сохраняем в localStorage
+    localStorage.setItem('selectedTariff', selectedTariff.value)
+
+    console.log('Выбран тариф:', selectedTariff.value)
+
+    // Сброс временного выбора
+    tempSelectedTariff.value = null
+  }
 }
 
 // Данные поиска
-const searchData = ref({
+const searchData = ref<SearchData>({
   id: 0,
   name: '',
   url: '',
-  tariff: 'standard',
+  tariff: 'free_trial',
 })
 
 // Фильтры
-const filters = ref({
+const searchFilters = ref<SearchFilters>({
   includeKeywords: '',
   excludeKeywords: '',
   blockedSellers: '',
@@ -437,20 +565,22 @@ const loadSearchData = () => {
     return
   }
 
-  const id = parseInt(searchId.value as string)
+  const id = parseInt(searchId.value)
 
   try {
     const savedSearches = localStorage.getItem('user_searches')
     if (savedSearches) {
-      const searches = JSON.parse(savedSearches)
-      const search = searches.find((s: any) => s.id === id)
+      const searches: SearchData[] = JSON.parse(savedSearches)
+      const search = searches.find((s: SearchData) => s.id === id)
 
       if (search) {
         searchData.value = { ...searchData.value, ...search }
-        selectedTariff.value = search.tariff || 'standard'
+        selectedTariff.value = search.tariff || 'free_trial'
 
-        if (search.filters) {
-          filters.value = { ...filters.value, ...search.filters }
+        // Загружаем фильтры из другого хранилища
+        const savedFilters = localStorage.getItem(`search_filters_${id}`)
+        if (savedFilters) {
+          searchFilters.value = JSON.parse(savedFilters)
         }
       }
     }
@@ -465,17 +595,16 @@ const saveSearch = async () => {
 
   try {
     // Подготовка данных
-    const searchToSave = {
+    const searchToSave: SearchData = {
       ...searchData.value,
       tariff: selectedTariff.value,
-      filters: { ...filters.value },
     }
 
     // Сохранение в LocalStorage
     const savedSearches = localStorage.getItem('user_searches')
-    let searches = savedSearches ? JSON.parse(savedSearches) : []
+    let searches: SearchData[] = savedSearches ? JSON.parse(savedSearches) : []
 
-    const existingIndex = searches.findIndex((s: any) => s.id === searchToSave.id)
+    const existingIndex = searches.findIndex((s: SearchData) => s.id === searchToSave.id)
 
     if (existingIndex !== -1) {
       searches[existingIndex] = searchToSave
@@ -484,6 +613,9 @@ const saveSearch = async () => {
     }
 
     localStorage.setItem('user_searches', JSON.stringify(searches))
+
+    // Сохраняем фильтры отдельно
+    localStorage.setItem(`search_filters_${searchToSave.id}`, JSON.stringify(searchFilters.value))
 
     alert(isNewSearch.value ? 'Поиск создан!' : 'Изменения сохранены!')
     router.push('/dashboard')
@@ -500,9 +632,12 @@ const deleteSearch = () => {
   if (confirm('Удалить этот поиск?')) {
     const savedSearches = localStorage.getItem('user_searches')
     if (savedSearches) {
-      const searches = JSON.parse(savedSearches)
-      const filtered = searches.filter((s: any) => s.id !== searchData.value.id)
+      const searches: SearchData[] = JSON.parse(savedSearches)
+      const filtered = searches.filter((s: SearchData) => s.id !== searchData.value.id)
       localStorage.setItem('user_searches', JSON.stringify(filtered))
+
+      // Удаляем фильтры
+      localStorage.removeItem(`search_filters_${searchData.value.id}`)
     }
     router.push('/dashboard')
   }
@@ -520,6 +655,12 @@ const handleClickOutside = (event: MouseEvent) => {
 onMounted(() => {
   loadSearchData()
   document.addEventListener('click', handleClickOutside)
+
+  // Загружаем сохранённый тариф
+  const savedTariff = localStorage.getItem('selectedTariff')
+  if (savedTariff) {
+    selectedTariff.value = savedTariff
+  }
 })
 </script>
 
