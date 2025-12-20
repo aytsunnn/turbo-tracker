@@ -15,25 +15,28 @@
         >
           <div class="flex flex-col">
             <p class="font-montserrat font-semibold text-xl lg:text-2xl">{{ search.name }}</p>
-            <div class="flex flex-col lg:flex-row gap-2 lg:gap-4 font-montserrat font-light text-lg lg:text-xl mt-2">
+            <div
+              class="flex flex-col lg:flex-row gap-2 lg:gap-4 font-montserrat font-light text-lg lg:text-xl mt-2"
+            >
               <p>Тариф: {{ search.tariff }}</p>
               <p>До {{ formatDate(search.expires) }}</p>
             </div>
           </div>
           <div class="flex flex-wrap gap-3 lg:gap-10 mt-4 lg:mt-0">
-            <button 
-              @click="editSearch(search.id)"
+            <!-- Заменяем кнопку на router-link -->
+            <router-link
+              :to="`/edit-search/${search.id}`"
               class="font-montserrat font-light text-base lg:text-2xl hover:text-blue-custom transition px-3 py-2 lg:px-0 lg:py-0"
             >
               Редактировать
-            </button>
-            <button 
+            </router-link>
+            <button
               @click="extendSearch(search.id)"
               class="font-montserrat font-light text-base lg:text-2xl hover:text-blue-custom transition px-3 py-2 lg:px-0 lg:py-0"
             >
               Продлить
             </button>
-            <button 
+            <button
               @click="deleteSearch(search.id)"
               class="font-montserrat font-light text-base lg:text-2xl hover:text-red-400 transition px-3 py-2 lg:px-0 lg:py-0"
             >
@@ -41,7 +44,7 @@
             </button>
           </div>
         </div>
-        
+
         <!-- Если нет поисков -->
         <div
           v-if="searches.length === 0"
@@ -58,13 +61,14 @@
 
       <!-- Кнопка добавления -->
       <div class="flex justify-center mt-6">
-        <button
-          @click="addNewSearch"
+        <!-- Добавляем новую кнопку для создания поиска -->
+        <router-link
+          to="/edit-search/new"
           class="bg-blue-custom p-4 rounded-full flex items-center justify-center text-lg lg:text-xl font-inter font-semibold gap-4 w-full lg:w-91.5 h-16 lg:h-21 hover:opacity-90 transition"
         >
           <img src="/images/plus.svg" alt="plus" class="w-7 h-7" />
           Добавить поиск
-        </button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -72,6 +76,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 interface SearchItem {
   id: number
@@ -83,6 +88,8 @@ interface SearchItem {
   updates?: number
 }
 
+const router = useRouter()
+
 // Начальные данные (заглушка для LocalStorage)
 const defaultSearches: SearchItem[] = [
   {
@@ -92,7 +99,7 @@ const defaultSearches: SearchItem[] = [
     expires: '2025-12-12T12:25:00',
     status: 'active',
     speed: '1 секунда',
-    updates: 45
+    updates: 45,
   },
   {
     id: 2,
@@ -101,7 +108,7 @@ const defaultSearches: SearchItem[] = [
     expires: '2025-03-20T14:30:00',
     status: 'active',
     speed: '0.1 секунды',
-    updates: 156
+    updates: 156,
   },
   {
     id: 3,
@@ -110,8 +117,8 @@ const defaultSearches: SearchItem[] = [
     expires: '2025-04-15T10:00:00',
     status: 'paused',
     speed: '5 секунд',
-    updates: 23
-  }
+    updates: 23,
+  },
 ]
 
 const searches = ref<SearchItem[]>([])
@@ -142,51 +149,16 @@ const saveSearches = () => {
   }
 }
 
-// Добавление нового поиска
-const addNewSearch = () => {
-  const newId = searches.value.length > 0 
-    ? Math.max(...searches.value.map(s => s.id)) + 1 
-    : 1
-  
-  const newSearch: SearchItem = {
-    id: newId,
-    name: `Новый поиск ${newId}`,
-    tariff: 'БЕСПЛАТНЫЙ',
-    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // +30 дней
-    status: 'active',
-    speed: '1 секунда',
-    updates: 0
-  }
-  
-  searches.value.unshift(newSearch) // Добавляем в начало
-  saveSearches()
-  
-  // Можете заменить alert на более красивый toast-уведомление
-  console.log(`Добавлен новый поиск: "${newSearch.name}"`)
-}
-
-// Редактирование поиска
-const editSearch = (id: number) => {
-  const search = searches.value.find(s => s.id === id)
-  if (search) {
-    const newName = prompt('Введите новое название поиска:', search.name)
-    if (newName && newName.trim()) {
-      search.name = newName.trim()
-      saveSearches()
-    }
-  }
-}
-
 // Продление поиска
 const extendSearch = (id: number) => {
-  const search = searches.value.find(s => s.id === id)
+  const search = searches.value.find((s) => s.id === id)
   if (search) {
     const newDate = new Date(search.expires)
     newDate.setMonth(newDate.getMonth() + 1) // Добавляем месяц
-    
+
     search.expires = newDate.toISOString()
     saveSearches()
-    
+
     console.log(`Поиск "${search.name}" продлен до ${formatDate(search.expires)}`)
   }
 }
@@ -194,7 +166,7 @@ const extendSearch = (id: number) => {
 // Удаление поиска
 const deleteSearch = (id: number) => {
   if (confirm('Вы уверены, что хотите удалить этот поиск?')) {
-    const searchIndex = searches.value.findIndex(s => s.id === id)
+    const searchIndex = searches.value.findIndex((s) => s.id === id)
     if (searchIndex !== -1) {
       const deletedSearch = searches.value[searchIndex]
       searches.value.splice(searchIndex, 1)
@@ -213,7 +185,7 @@ const formatDate = (dateString: string) => {
       month: '2-digit',
       year: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     })
   } catch (error) {
     return 'дата не определена'
@@ -228,9 +200,7 @@ onMounted(() => {
 // Экспортируем функции для использования в других компонентах (опционально)
 defineExpose({
   searches,
-  addNewSearch,
-  editSearch,
-  deleteSearch
+  deleteSearch,
 })
 </script>
 

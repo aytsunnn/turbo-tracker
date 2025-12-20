@@ -13,6 +13,12 @@ const routes = [
     component: () => import('../Dashboard.vue'), // Динамический импорт
   },
   {
+    path: '/edit-search/:id',
+    name: 'EditSearch',
+    component: () => import('../EditSearch.vue'),
+    props: true,
+  },
+  {
     path: '/:catchAll(.*)', // 404 страница
     redirect: '/',
   },
@@ -20,7 +26,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes, // Теперь routes объявлен до использования
+  routes,
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
       return {
