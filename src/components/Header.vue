@@ -5,7 +5,16 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
-const isDashboard = computed(() => route.path === '/dashboard')
+// Изменяем логику: проверяем не только /dashboard, но и другие страницы личного кабинета
+const isDashboard = computed(() => {
+  return (
+    route.path === '/dashboard' ||
+    route.path.startsWith('/edit-search') ||
+    route.path.startsWith('/search/') ||
+    // добавьте другие пути личного кабинета при необходимости
+    false
+  )
+})
 
 const goHome = () => {
   router.push('/')
@@ -100,7 +109,7 @@ const isMobileMenuOpen = ref(false)
         </button>
       </nav>
 
-      <!-- Десктопное меню для dashboard -->
+      <!-- Десктопное меню для dashboard и редактирования поиска -->
       <nav
         v-else
         class="hidden lg:flex flex-row items-center gap-8 lg:gap-12 font-inter text-base lg:text-lg"
@@ -108,12 +117,12 @@ const isMobileMenuOpen = ref(false)
         <router-link to="/" class="hover:text-blue-custom transition whitespace-nowrap text-white">
           ГЛАВНАЯ
         </router-link>
-        <a
-          href="#monitorings"
+        <router-link
+          to="/dashboard"
           class="hover:text-blue-custom transition whitespace-nowrap text-white"
         >
           МОНИТОРИНГИ
-        </a>
+        </router-link>
         <a href="#tariff" class="hover:text-blue-custom transition whitespace-nowrap text-white">
           ТАРИФ
         </a>
@@ -209,7 +218,7 @@ const isMobileMenuOpen = ref(false)
       </div>
     </div>
 
-    <!-- Мобильное меню: выпадающий список для dashboard -->
+    <!-- Мобильное меню: выпадающий список для dashboard и редактирования поиска -->
     <div
       v-else
       :class="[
@@ -225,13 +234,13 @@ const isMobileMenuOpen = ref(false)
         >
           ГЛАВНАЯ
         </router-link>
-        <a
-          href="#monitorings"
+        <router-link
+          to="/dashboard"
           @click="isMobileMenuOpen = false"
           class="text-lg hover:text-blue-custom transition py-2 text-white w-full text-center"
         >
           МОНИТОРИНГИ
-        </a>
+        </router-link>
         <a
           href="#tariff"
           @click="isMobileMenuOpen = false"
@@ -264,27 +273,3 @@ const isMobileMenuOpen = ref(false)
     </div>
   </header>
 </template>
-
-<style scoped>
-/* Стили для плавной анимации */
-.transition-all {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-}
-
-/* Стили для выпадающего меню в dashboard */
-.group:hover .group-hover\:opacity-100 {
-  opacity: 1;
-}
-
-.group:hover .group-hover\:visible {
-  visibility: visible;
-}
-
-.bg-glass {
-  background: rgba(15, 22, 28, 0.95);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-</style>
