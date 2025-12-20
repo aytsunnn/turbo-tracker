@@ -1,0 +1,58 @@
+import type { Circle } from '@/components/BackgroundShadows.vue'
+
+export const toolsShadows: Circle[] = [
+  {
+    x: 2118.5,
+    y: 598.93,
+    w: 111,
+    h: 103,
+    color: '#04D65D',
+    opacity: 1,
+    blur: 100,
+  },
+  {
+    x: 448,
+    y: 930,
+    w: 91,
+    h: 91,
+    color: '#248AE3',
+    opacity: 1,
+    blur: 100,
+  },
+  {
+    x: 538,
+    y: 1745,
+    w: 401,
+    h: 401,
+    color: '#FFFFFF',
+    opacity: 0.19,
+    blur: 395.4,
+  },
+  {
+    x: 70,
+    y: 0,
+    w: 435,
+    h: 435,
+    color: '#D9D9D9',
+    opacity: 0.7,
+    blur: 300,
+  },
+  {
+    x: 0,
+    y: 2468,
+    w: 505,
+    h: 505,
+    color: '#FFFFFF',
+    opacity: 0.76,
+    blur: 500,
+  },
+  {
+    x: 1990,
+    y: 1406,
+    w: 148,
+    h: 148,
+    color: '#C94741',
+    opacity: 1,
+    blur: 100,
+  },
+]
