@@ -21,7 +21,7 @@
               <input
                 v-model="searchData.name"
                 type="text"
-                class="w-full h-14 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
+                class="input-gradient w-full h-14 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
                 placeholder="Введите любое название..."
                 required
               />
@@ -45,7 +45,7 @@
               <input
                 v-model="searchData.url"
                 type="url"
-                class="w-full h-14 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
+                class="input-gradient w-full h-14 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
                 placeholder="https://www.avito.ru/..."
                 required
               />
@@ -55,10 +55,8 @@
           <!-- Всплывающая подсказка для ссылки -->
           <div v-if="showLinkHelp" class="flex flex-col lg:flex-row gap-6">
             <div class="lg:w-85"></div>
-            <div
-              class="flex-1 p-3 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-lg"
-            >
-              <p class="text-white text-sm">
+            <div class="flex-1 p-3 input-gradient rounded-lg">
+              <p class="text-blue-300 text-sm">
                 1. Откройте Avito<br />
                 2. Настройте нужные фильтры<br />
                 3. Скопируйте URL из адресной строки<br />
@@ -80,10 +78,10 @@
 
             <div class="flex-1 relative">
               <div
-                class="w-full bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl overflow-hidden transition-all duration-300"
+                class="input-gradient w-full rounded-2xl overflow-hidden transition-all duration-300"
               >
                 <div
-                  class="px-6 py-5 hover:bg-white/5 transition cursor-pointer"
+                  class="dropdown-header px-6 py-5 hover:bg-white/5 transition cursor-pointer"
                   @click="showTariffDropdown = !showTariffDropdown"
                 >
                   <div class="flex items-center justify-between gap-4">
@@ -100,10 +98,7 @@
                   </div>
                 </div>
 
-                <div
-                  v-if="showTariffDropdown"
-                  class="px-6 pb-5 space-y-6 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px]"
-                >
+                <div v-if="showTariffDropdown" class="px-6 pb-5 space-y-6">
                   <div v-for="tariffGroup in tariffGroups" :key="tariffGroup.id" class="space-y-3">
                     <div class="flex font-montserrat flex-row gap-2 items-baseline">
                       <p class="font-extrabold text-xl">{{ tariffGroup.name }}</p>
@@ -115,10 +110,10 @@
                         v-for="tariff in tariffGroup.tariffs"
                         :key="tariff.id"
                         @click="tempSelectedTariff = tariff.id"
-                        class="p-4 cursor-pointer transition flex justify-between items-center bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-lg"
+                        class="p-4 cursor-pointer transition flex justify-between items-center"
                         :class="{
                           'selected-tariff': tempSelectedTariff === tariff.id,
-                          'glass-for-tariffs': tempSelectedTariff !== tariff.id,
+                          'dropdown-item': tempSelectedTariff !== tariff.id,
                         }"
                       >
                         <div class="font-inter font-semibold text-base">{{ tariff.name }}</div>
@@ -127,7 +122,7 @@
                     </div>
                   </div>
 
-                  <p class="font-montserrat font-medium text-sm text-white">
+                  <p class="font-montserrat font-medium text-sm">
                     <span class="font-extrabold text-xl">Хотите изменить тариф?</span><br />
                     Напишите в нашу
                     <a
@@ -169,7 +164,7 @@
             <div class="flex-1">
               <textarea
                 v-model="searchFilters.includeKeywords"
-                class="w-full min-h-22 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
+                class="input-gradient w-full min-h-22 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
                 placeholder="Вставляйте целевые слова через запятую: собственник, владелец...."
               ></textarea>
             </div>
@@ -187,7 +182,7 @@
             <div class="flex-1">
               <textarea
                 v-model="searchFilters.excludeKeywords"
-                class="w-full min-h-22 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
+                class="input-gradient w-full min-h-22 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
                 placeholder="Вставляйте минус слова через запятую: автосалон, риелтор, магазин..."
               ></textarea>
             </div>
@@ -209,7 +204,7 @@
             <div class="flex-1">
               <textarea
                 v-model="searchFilters.blockedSellers"
-                class="w-full min-h-22 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
+                class="input-gradient w-full min-h-22 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
                 placeholder="Вставляйте ID продавцов через запятую: 123456789, 987654321..."
               ></textarea>
             </div>
@@ -218,10 +213,8 @@
           <!-- Всплывающая подсказка для продавца -->
           <div v-if="showSellerHelp" class="flex flex-col lg:flex-row gap-6">
             <div class="lg:w-85"></div>
-            <div
-              class="flex-1 p-3 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-lg"
-            >
-              <p class="text-white text-sm">
+            <div class="flex-1 p-3 input-gradient rounded-lg">
+              <p class="text-blue-300 text-sm">
                 1. Откройте профиль продавца на Avito<br />
                 2. В URL будет ID вида "user/123456789"<br />
                 3. Скопируйте только цифры<br />
@@ -234,7 +227,7 @@
           <div class="mt-27.5 space-y-8">
             <!-- Первый переключатель -->
             <div
-              class="w-full bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl items-center justify-between flex flex-row"
+              class="input-gradient w-full rounded-2xl items-center justify-between flex flex-row"
             >
               <div class="flex flex-col font-montserrat p-4">
                 <p class="font-semibold text-2xl">Искать только новые объявления</p>
@@ -268,7 +261,7 @@
 
             <!-- Второй переключатель -->
             <div
-              class="w-full bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl items-center justify-between flex flex-row"
+              class="input-gradient w-full rounded-2xl items-center justify-between flex flex-row"
             >
               <div class="flex flex-col font-montserrat p-4">
                 <p class="font-semibold text-2xl">Показывать объявления со сниженной ценой</p>
@@ -302,7 +295,7 @@
 
             <!-- Третий переключатель -->
             <div
-              class="w-full bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl items-center justify-between flex flex-row"
+              class="input-gradient w-full rounded-2xl items-center justify-between flex flex-row"
             >
               <div class="flex flex-col font-montserrat p-4">
                 <p class="font-semibold text-2xl">Не показывать объявления с просмотрами > 50</p>
@@ -335,33 +328,11 @@
             </div>
           </div>
 
-          <!-- Кнопки действий -->
-          <div class="flex flex-col lg:flex-row gap-4 pt-8 border-t border-white/10">
+          <div class="flex justify-center mt-8">
             <button
-              type="submit"
-              class="flex-1 bg-blue-custom rounded-2xl h-14 text-white font-inter font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
+              class="bg-blue-custom rounded-full items-center justify-center w-full lg:w-91.5 h-16 lg:h-20.75 mt-6 lg:mt-8 mx-auto py-3"
             >
-              <svg
-                v-if="isLoading"
-                class="animate-spin h-5 w-5 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  class="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  stroke-width="4"
-                ></circle>
-                <path
-                  class="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-              <span>{{ isNewSearch ? 'Создать поиск' : 'Сохранить изменения' }}</span>
+              <p class="font-inter font-semibold text-lg lg:text-xl">Сохранить и подключить</p>
             </button>
           </div>
         </form>
@@ -626,7 +597,7 @@ const deleteSearch = () => {
 
 const handleClickOutside = (event: MouseEvent) => {
   const target = event.target as HTMLElement
-  const dropdownContainer = target.closest('.relative .bg-white\\/10')
+  const dropdownContainer = target.closest('.relative .input-gradient')
 
   if (!dropdownContainer) {
     showTariffDropdown.value = false
@@ -666,6 +637,44 @@ onMounted(() => {
   transform: rotate(180deg);
 }
 
+/* Стиль для градиентного фона блоков */
+.input-gradient {
+  background: linear-gradient(180deg, rgba(185, 185, 185, 0.13) 0%, rgba(153, 153, 153, 0.13) 100%);
+  backdrop-filter: blur(136.9px);
+  -webkit-backdrop-filter: blur(136.9px);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+}
+
+/* Стиль для элементов внутри dropdown */
+.dropdown-item {
+  background: linear-gradient(180deg, rgba(185, 185, 185, 0.13) 0%, rgba(153, 153, 153, 0.13) 100%);
+  backdrop-filter: blur(136.9px);
+  -webkit-backdrop-filter: blur(136.9px);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 0.75rem;
+}
+
+.selected-tariff {
+  background: linear-gradient(180deg, rgba(36, 138, 227, 0.8) 0%, rgba(36, 138, 227, 0.28) 100%);
+  backdrop-filter: blur(136.9px);
+  -webkit-backdrop-filter: blur(136.9px);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 0.75rem;
+}
+
+/* Стиль для заголовка dropdown */
+.dropdown-header {
+  background: linear-gradient(180deg, rgba(185, 185, 185, 0.13) 0%, rgba(153, 153, 153, 0.13) 100%);
+  backdrop-filter: blur(136.9px);
+  -webkit-backdrop-filter: blur(136.9px);
+}
+
+/* Убираем стандартные border у полей ввода */
+.input-gradient:focus {
+  border-color: rgba(36, 138, 227, 0.8);
+  box-shadow: 0 0 0 3px rgba(36, 138, 227, 0.1);
+}
+
 @media (max-width: 1024px) {
   .lg\:w-85 {
     width: 100%;
@@ -675,19 +684,5 @@ onMounted(() => {
     margin-left: 1rem;
     margin-right: 1rem;
   }
-}
-
-/* Дополнительные стили для выпадающего списка */
-.selected-tariff {
-  border-color: #248ae3 !important;
-  background: linear-gradient(90deg, #248ae3 0%, #1a6bb8 100%) !important;
-}
-
-.glass-for-tariffs {
-  background: linear-gradient(
-    90deg,
-    rgba(185, 185, 185, 0.2) 0%,
-    rgba(153, 153, 153, 0.08) 100%
-  ) !important;
 }
 </style>
