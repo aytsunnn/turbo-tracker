@@ -5,25 +5,23 @@
     <div class="mx-40 px-4 lg:px-8 py-8">
       <div class="mb-8 text-center">
         <p class="font-montserrat text-3xl lg:text-4xl font-bold mb-2">
-          {{ isNewSearch ? 'Создание нового поиска' : 'Редактирование поиска' }}
+          {{ isNewSearch ? 'Создание нового поиска' : 'РЕДАКТИРОВАНИЕ ПОИСКА:' }}
         </p>
       </div>
 
-      <div class="glass-gradient p-6 lg:p-8">
+      <div class="glass-gradient p-6 lg:p-25">
         <form @submit.prevent="saveSearch" class="space-y-8">
           <!-- 1. Название поиска -->
           <div class="flex flex-col lg:flex-row gap-6">
-            <!-- Левая колонка -->
-            <div class="lg:w-80 justify-start items-end flex flex-col">
-              <p class="block font-montserrat font-semibold text-xl">Название поиска:</p>
+            <div class="lg:w-85 flex flex-col items-end text-right">
+              <p class="font-montserrat font-semibold text-2xl">Название поиска:</p>
             </div>
 
-            <!-- Правая колонка -->
             <div class="flex-1">
               <input
                 v-model="searchData.name"
                 type="text"
-                class="w-full h-14 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom"
+                class="w-full h-14 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
                 placeholder="Введите любое название..."
                 required
               />
@@ -32,24 +30,22 @@
 
           <!-- 2. Ссылка на поиск -->
           <div class="flex flex-col lg:flex-row gap-6">
-            <!-- Левая колонка -->
-            <div class="lg:w-80 justify-start items-end flex flex-col">
-              <p class="block font-montserrat font-semibold text-xl">Вставьте ссылку на поиск:</p>
+            <div class="lg:w-85 flex flex-col items-end text-right">
+              <p class="font-montserrat font-semibold text-2xl">Вставьте ссылку на поиск:</p>
               <button
                 type="button"
                 @click="showLinkHelp = !showLinkHelp"
-                class="text-blue-custom text-sm mt-2 flex items-center gap-1"
+                class="font-montserrat font-semibold text-xl text-blue-custom mt-2 flex items-center gap-1"
               >
                 Где взять ссылку?
               </button>
             </div>
 
-            <!-- Правая колонка -->
             <div class="flex-1">
               <input
                 v-model="searchData.url"
                 type="url"
-                class="w-full h-14 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom"
+                class="w-full h-14 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
                 placeholder="https://www.avito.ru/..."
                 required
               />
@@ -58,9 +54,11 @@
 
           <!-- Всплывающая подсказка для ссылки -->
           <div v-if="showLinkHelp" class="flex flex-col lg:flex-row gap-6">
-            <div class="lg:w-80"></div>
-            <div class="flex-1 p-3 bg-blue-custom/10 border border-blue-custom/20 rounded-lg">
-              <p class="text-blue-300 text-sm">
+            <div class="lg:w-85"></div>
+            <div
+              class="flex-1 p-3 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-lg"
+            >
+              <p class="text-white text-sm">
                 1. Откройте Avito<br />
                 2. Настройте нужные фильтры<br />
                 3. Скопируйте URL из адресной строки<br />
@@ -71,18 +69,19 @@
 
           <!-- 3. Выбор тарифа -->
           <div class="flex flex-col lg:flex-row gap-6">
-            <div class="lg:w-80 justify-start items-end flex flex-col">
-              <p class="block font-montserrat font-semibold text-xl">Выберите тариф:</p>
-              <button class="text-blue-custom text-sm mt-2 flex items-center gap-1">
+            <div class="lg:w-85 flex flex-col items-end text-right">
+              <p class="font-montserrat font-semibold text-2xl">Выберите тариф:</p>
+              <button
+                class="font-montserrat font-semibold text-xl text-blue-custom mt-2 flex items-center gap-1"
+              >
                 Подробнее про тарифы
               </button>
             </div>
 
             <div class="flex-1 relative">
               <div
-                class="w-full bg-white/10 border border-white/20 rounded-2xl overflow-hidden transition-all duration-300"
+                class="w-full bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl overflow-hidden transition-all duration-300"
               >
-                <!-- ЗАГОЛОВОК (только здесь клик переключает dropdown) -->
                 <div
                   class="px-6 py-5 hover:bg-white/5 transition cursor-pointer"
                   @click="showTariffDropdown = !showTariffDropdown"
@@ -101,16 +100,14 @@
                   </div>
                 </div>
 
-                <!-- КОНТЕНТ DROPDOWN (клик здесь не закрывает dropdown) -->
-                <div v-if="showTariffDropdown" class="px-6 pb-5 space-y-6">
+                <div
+                  v-if="showTariffDropdown"
+                  class="px-6 pb-5 space-y-6 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px]"
+                >
                   <div v-for="tariffGroup in tariffGroups" :key="tariffGroup.id" class="space-y-3">
                     <div class="flex font-montserrat flex-row gap-2 items-baseline">
-                      <p class="font-extrabold text-xl">
-                        {{ tariffGroup.name }}
-                      </p>
-                      <p class="text-sm text-white/69">
-                        {{ tariffGroup.description }}
-                      </p>
+                      <p class="font-extrabold text-xl">{{ tariffGroup.name }}</p>
+                      <p class="text-sm text-white/69">{{ tariffGroup.description }}</p>
                     </div>
 
                     <div class="space-y-2">
@@ -118,23 +115,19 @@
                         v-for="tariff in tariffGroup.tariffs"
                         :key="tariff.id"
                         @click="tempSelectedTariff = tariff.id"
-                        class="p-4 cursor-pointer transition flex justify-between items-center"
+                        class="p-4 cursor-pointer transition flex justify-between items-center bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-lg"
                         :class="{
                           'selected-tariff': tempSelectedTariff === tariff.id,
                           'glass-for-tariffs': tempSelectedTariff !== tariff.id,
                         }"
                       >
-                        <div class="font-inter font-semibold text-base">
-                          {{ tariff.name }}
-                        </div>
-                        <div class="font-inter font-bold text-lg">
-                          {{ tariff.price }}
-                        </div>
+                        <div class="font-inter font-semibold text-base">{{ tariff.name }}</div>
+                        <div class="font-inter font-bold text-lg">{{ tariff.price }}</div>
                       </div>
                     </div>
                   </div>
 
-                  <p class="font-montserrat font-medium text-sm">
+                  <p class="font-montserrat font-medium text-sm text-white">
                     <span class="font-extrabold text-xl">Хотите изменить тариф?</span><br />
                     Напишите в нашу
                     <a
@@ -166,19 +159,17 @@
 
           <!-- 4. Целевые слова -->
           <div class="flex flex-col lg:flex-row gap-6">
-            <!-- Левая колонка -->
-            <div class="lg:w-80 justify-start items-end flex flex-col text-right">
-              <p class="block font-montserrat font-semibold text-xl">Целевые слова:</p>
-              <p class="text-xl text-white/50 mt-1">
+            <div class="lg:w-85 flex flex-col items-end text-right">
+              <p class="font-montserrat font-semibold text-2xl">Целевые слова:</p>
+              <p class="font-montserrat font-medium text-xl text-white/50 mt-1">
                 Cлова, которые должны присутствовать в объявлениях
               </p>
             </div>
 
-            <!-- Правая колонка -->
             <div class="flex-1">
               <textarea
                 v-model="searchFilters.includeKeywords"
-                class="w-full min-h-22 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:text-white/28 placeholder:text-xl"
+                class="w-full min-h-22 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
                 placeholder="Вставляйте целевые слова через запятую: собственник, владелец...."
               ></textarea>
             </div>
@@ -186,19 +177,17 @@
 
           <!-- 5. Минус слова -->
           <div class="flex flex-col lg:flex-row gap-6">
-            <!-- Левая колонка -->
-            <div class="lg:w-80 justify-start items-end flex flex-col text-right">
-              <p class="block font-montserrat font-semibold text-xl">Минус слова:</p>
-              <p class="text-xl text-white/50 mt-1">
+            <div class="lg:w-85 flex flex-col items-end text-right">
+              <p class="font-montserrat font-semibold text-2xl">Минус слова:</p>
+              <p class="font-montserrat font-medium text-xl text-white/50 mt-1">
                 Слова, которые должны отсутствовать в объявлениях
               </p>
             </div>
 
-            <!-- Правая колонка -->
             <div class="flex-1">
               <textarea
                 v-model="searchFilters.excludeKeywords"
-                class="w-full min-h-22 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:text-white/28 placeholder:text-xl"
+                class="w-full min-h-22 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
                 placeholder="Вставляйте минус слова через запятую: автосалон, риелтор, магазин..."
               ></textarea>
             </div>
@@ -206,23 +195,21 @@
 
           <!-- 6. Блокировка продавцов -->
           <div class="flex flex-col lg:flex-row gap-6">
-            <!-- Левая колонка -->
-            <div class="lg:w-80 justify-start items-end flex flex-col text-right">
-              <p class="block font-montserrat font-semibold text-xl">Заблокировать продавца:</p>
+            <div class="lg:w-85 flex flex-col items-end text-right">
+              <p class="font-montserrat font-semibold text-2xl">Заблокировать продавца:</p>
               <button
                 type="button"
                 @click="showSellerHelp = !showSellerHelp"
-                class="text-blue-custom text-sm mt-2 flex items-center gap-1 self-end"
+                class="font-montserrat font-semibold text-xl text-blue-custom mt-2 flex items-center gap-1"
               >
                 Где взять ID продавца?
               </button>
             </div>
 
-            <!-- Правая колонка -->
             <div class="flex-1">
               <textarea
                 v-model="searchFilters.blockedSellers"
-                class="w-full min-h-22 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:text-white/28 placeholder:text-xl"
+                class="w-full min-h-22 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:font-medium placeholder:text-xl placeholder:text-white/28"
                 placeholder="Вставляйте ID продавцов через запятую: 123456789, 987654321..."
               ></textarea>
             </div>
@@ -230,14 +217,121 @@
 
           <!-- Всплывающая подсказка для продавца -->
           <div v-if="showSellerHelp" class="flex flex-col lg:flex-row gap-6">
-            <div class="lg:w-80"></div>
-            <div class="flex-1 p-3 bg-blue-custom/10 border border-blue-custom/20 rounded-lg">
-              <p class="text-blue-300 text-sm">
+            <div class="lg:w-85"></div>
+            <div
+              class="flex-1 p-3 bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-lg"
+            >
+              <p class="text-white text-sm">
                 1. Откройте профиль продавца на Avito<br />
                 2. В URL будет ID вида "user/123456789"<br />
                 3. Скопируйте только цифры<br />
                 4. Вставьте в поле справа
               </p>
+            </div>
+          </div>
+
+          <!-- Обертка для всех трех переключателей -->
+          <div class="mt-27.5 space-y-8">
+            <!-- Первый переключатель -->
+            <div
+              class="w-full bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl items-center justify-between flex flex-row"
+            >
+              <div class="flex flex-col font-montserrat p-4">
+                <p class="font-semibold text-2xl">Искать только новые объявления</p>
+                <p class="font-medium text-xl text-white/56">
+                  Если галочка нажата, будет присылать только новые объявления, которые ранее не
+                  публиковались.
+                </p>
+              </div>
+              <div class="p-4 flex items-center justify-center">
+                <button
+                  type="button"
+                  class="switch-toggle relative w-22.25 h-11.75 rounded-[20px] transition-all duration-300 overflow-hidden"
+                  :style="{
+                    backgroundColor: searchSettings.isNewAdsOnly ? '#D9D9D9' : '#515151',
+                  }"
+                  role="switch"
+                  :aria-checked="searchSettings.isNewAdsOnly"
+                  @click="toggleNewAdsOnly"
+                >
+                  <span
+                    class="switch-toggle-thumb absolute w-10.75 h-10.75 rounded-[20px] transition-all duration-300"
+                    :style="{
+                      backgroundColor: searchSettings.isNewAdsOnly ? '#515151' : '#D9D9D9',
+                      left: searchSettings.isNewAdsOnly ? 'calc(100% - 45px)' : '2px',
+                      top: '2px',
+                    }"
+                  ></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Второй переключатель -->
+            <div
+              class="w-full bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl items-center justify-between flex flex-row"
+            >
+              <div class="flex flex-col font-montserrat p-4">
+                <p class="font-semibold text-2xl">Показывать объявления со сниженной ценой</p>
+                <p class="font-medium text-xl text-white/56">
+                  Если стоит галочка Программа также будет присылать объявления, которые поданы уже
+                  не в первый раз, но цена на них снижена.
+                </p>
+              </div>
+              <div class="p-4 flex items-center justify-center">
+                <button
+                  type="button"
+                  class="switch-toggle relative w-22.25 h-11.75 rounded-[20px] transition-all duration-300 overflow-hidden"
+                  :style="{
+                    backgroundColor: searchSettings.showReducedPrice ? '#D9D9D9' : '#515151',
+                  }"
+                  role="switch"
+                  :aria-checked="searchSettings.showReducedPrice"
+                  @click="toggleReducedPrice"
+                >
+                  <span
+                    class="switch-toggle-thumb absolute w-10.75 h-10.75 rounded-[20px] transition-all duration-300"
+                    :style="{
+                      backgroundColor: searchSettings.showReducedPrice ? '#515151' : '#D9D9D9',
+                      left: searchSettings.showReducedPrice ? 'calc(100% - 45px)' : '2px',
+                      top: '2px',
+                    }"
+                  ></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Третий переключатель -->
+            <div
+              class="w-full bg-gradient-to-r from-[#B9B9B9]/100 to-[#999999]/28 backdrop-blur-[136.9px] border border-white/72 border-opacity-72 rounded-2xl items-center justify-between flex flex-row"
+            >
+              <div class="flex flex-col font-montserrat p-4">
+                <p class="font-semibold text-2xl">Не показывать объявления с просмотрами > 50</p>
+                <p class="font-medium text-xl text-white/56">
+                  программа проверяет просмотры объявления, и если у него более 50 просмотров, то не
+                  присылает его.
+                </p>
+              </div>
+              <div class="p-4 flex items-center justify-center">
+                <button
+                  type="button"
+                  class="switch-toggle relative w-22.25 h-11.75 rounded-[20px] transition-all duration-300 overflow-hidden"
+                  :style="{
+                    backgroundColor: searchSettings.hideHighViews ? '#D9D9D9' : '#515151',
+                  }"
+                  role="switch"
+                  :aria-checked="searchSettings.hideHighViews"
+                  @click="toggleHideHighViews"
+                >
+                  <span
+                    class="switch-toggle-thumb absolute w-10.75 h-10.75 rounded-[20px] transition-all duration-300"
+                    :style="{
+                      backgroundColor: searchSettings.hideHighViews ? '#515151' : '#D9D9D9',
+                      left: searchSettings.hideHighViews ? 'calc(100% - 45px)' : '2px',
+                      top: '2px',
+                    }"
+                  ></span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -269,38 +363,6 @@
               </svg>
               <span>{{ isNewSearch ? 'Создать поиск' : 'Сохранить изменения' }}</span>
             </button>
-
-            <button
-              v-if="!isNewSearch"
-              type="button"
-              @click="deleteSearch"
-              class="flex-1 bg-red-500/20 text-red-300 rounded-2xl h-14 font-inter font-semibold hover:bg-red-500/30 transition flex items-center justify-center gap-2"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                />
-              </svg>
-              Удалить поиск
-            </button>
-
-            <router-link
-              to="/dashboard"
-              class="flex-1 bg-gray-custom rounded-2xl h-14 text-white font-inter font-semibold hover:opacity-90 transition text-center flex items-center justify-center gap-2"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-              Отмена
-            </router-link>
           </div>
         </form>
       </div>
@@ -311,7 +373,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
@@ -327,9 +389,12 @@ interface SearchFilters {
   includeKeywords: string
   excludeKeywords: string
   blockedSellers: string
-  minPrice: string
-  maxPrice: string
-  region: string
+}
+
+interface SearchSettings {
+  isNewAdsOnly: boolean
+  showReducedPrice: boolean
+  hideHighViews: boolean
 }
 
 interface Tariff {
@@ -352,17 +417,32 @@ const router = useRouter()
 const isLoading = ref(false)
 const showLinkHelp = ref(false)
 const showSellerHelp = ref(false)
+const showTariffDropdown = ref(false)
+const selectedTariff = ref<string>('free_trial')
+const tempSelectedTariff = ref<string | null>(null)
 
-// ID поиска
 const searchId = computed(() => route.params.id as string)
 const isNewSearch = computed(() => searchId.value === 'new')
 
-// Тарифы
-const showTariffDropdown = ref(false)
-const selectedTariff = ref<string>('free_trial') // текущий выбранный тариф
-const tempSelectedTariff = ref<string | null>(null) // временный выбор в dropdown
+const searchSettings = ref<SearchSettings>({
+  isNewAdsOnly: true,
+  showReducedPrice: false,
+  hideHighViews: false,
+})
 
-// Структура данных для тарифов
+const searchData = ref<SearchData>({
+  id: 0,
+  name: '',
+  url: '',
+  tariff: 'free_trial',
+})
+
+const searchFilters = ref<SearchFilters>({
+  includeKeywords: '',
+  excludeKeywords: '',
+  blockedSellers: '',
+})
+
 const tariffGroups = ref<TariffGroup[]>([
   {
     id: 'free',
@@ -431,110 +511,38 @@ const tariffGroups = ref<TariffGroup[]>([
   },
 ])
 
-// Получить все тарифы в одном массиве
 const allTariffs = computed(() => {
   return tariffGroups.value.flatMap((group) => group.tariffs)
 })
 
-// Найти тариф по ID
-function findTariffById(tariffId: string): Tariff | null {
-  if (tariffId === 'free_trial') {
-    return {
-      id: 'free_trial',
-      name: 'Бесплатный доступ на 24 часа',
-      price: '0 ₽',
-      description: 'Бесплатный доступ к тарифу 1 секунда на 24 часа',
-      groupId: 'free',
-    }
-  }
-  return allTariffs.value.find((tariff) => tariff.id === tariffId) || null
-}
-
-// Получить группу по ID тарифа
-function findGroupByTariffId(tariffId: string): TariffGroup | null {
-  return (
-    tariffGroups.value.find((group) => group.tariffs.some((tariff) => tariff.id === tariffId)) ||
-    null
-  )
-}
-
-// Вычисляем высоту на основе количества элементов
-const getCalculatedHeight = computed(() => {
-  let height = 0
-
-  // Высота каждого элемента (примерные значения в пикселях)
-  const GROUP_HEADER = 30 // заголовок группы
-  const GROUP_DESCRIPTION = 40 // описание группы
-  const TARIFF_ITEM = 70 // один тариф
-  const NOTE_BLOCK = 120 // блок примечания
-  const BUTTON = 60 // кнопка
-  const PADDING = 32 // отступы (px-6 py-4 = 24px + 16px = 40px)
-  const GAP = 24 // промежутки между группами (space-y-6 = 1.5rem = 24px)
-
-  tariffGroups.value.forEach((group) => {
-    height += GROUP_HEADER + GROUP_DESCRIPTION + group.tariffs.length * TARIFF_ITEM
-  })
-
-  return height + NOTE_BLOCK + BUTTON + PADDING + tariffGroups.value.length * GAP
-})
-
-// Заголовок с названием выбранного тарифа
 const selectedTariffName = computed(() => {
-  const tariff = findTariffById(selectedTariff.value)
+  const tariff = allTariffs.value.find((t) => t.id === selectedTariff.value)
   return tariff ? tariff.name : 'Выберите тариф'
 })
 
-// Описание выбранного тарифа (из группы)
-const selectedTariffDescription = computed(() => {
-  const group = findGroupByTariffId(selectedTariff.value)
-  return group ? group.description : 'Выберите подходящий тариф'
-})
+const toggleNewAdsOnly = () => {
+  searchSettings.value.isNewAdsOnly = !searchSettings.value.isNewAdsOnly
+}
 
-// Сбрасываем временный выбор при открытии dropdown
-watch(showTariffDropdown, (newVal) => {
-  if (newVal) {
-    tempSelectedTariff.value = null // сбрасываем при открытии
-  }
-})
+const toggleReducedPrice = () => {
+  searchSettings.value.showReducedPrice = !searchSettings.value.showReducedPrice
+}
 
-// Функция применения тарифа
-function applyTariff() {
+const toggleHideHighViews = () => {
+  searchSettings.value.hideHighViews = !searchSettings.value.hideHighViews
+}
+
+const applyTariff = () => {
   if (tempSelectedTariff.value) {
     selectedTariff.value = tempSelectedTariff.value
     showTariffDropdown.value = false
-
-    // Сохраняем в localStorage
     localStorage.setItem('selectedTariff', selectedTariff.value)
-
-    console.log('Выбран тариф:', selectedTariff.value)
-
-    // Сброс временного выбора
     tempSelectedTariff.value = null
   }
 }
 
-// Данные поиска
-const searchData = ref<SearchData>({
-  id: 0,
-  name: '',
-  url: '',
-  tariff: 'free_trial',
-})
-
-// Фильтры
-const searchFilters = ref<SearchFilters>({
-  includeKeywords: '',
-  excludeKeywords: '',
-  blockedSellers: '',
-  minPrice: '',
-  maxPrice: '',
-  region: '',
-})
-
-// Загрузка данных
 const loadSearchData = () => {
   if (isNewSearch.value) {
-    // Новый поиск
     searchData.value.id = Date.now()
     return
   }
@@ -551,10 +559,14 @@ const loadSearchData = () => {
         searchData.value = { ...searchData.value, ...search }
         selectedTariff.value = search.tariff || 'free_trial'
 
-        // Загружаем фильтры из другого хранилища
         const savedFilters = localStorage.getItem(`search_filters_${id}`)
         if (savedFilters) {
           searchFilters.value = JSON.parse(savedFilters)
+        }
+
+        const savedSettings = localStorage.getItem(`search_settings_${id}`)
+        if (savedSettings) {
+          searchSettings.value = JSON.parse(savedSettings)
         }
       }
     }
@@ -563,18 +575,15 @@ const loadSearchData = () => {
   }
 }
 
-// Сохранение
 const saveSearch = async () => {
   isLoading.value = true
 
   try {
-    // Подготовка данных
     const searchToSave: SearchData = {
       ...searchData.value,
       tariff: selectedTariff.value,
     }
 
-    // Сохранение в LocalStorage
     const savedSearches = localStorage.getItem('user_searches')
     let searches: SearchData[] = savedSearches ? JSON.parse(savedSearches) : []
 
@@ -587,9 +596,8 @@ const saveSearch = async () => {
     }
 
     localStorage.setItem('user_searches', JSON.stringify(searches))
-
-    // Сохраняем фильтры отдельно
     localStorage.setItem(`search_filters_${searchToSave.id}`, JSON.stringify(searchFilters.value))
+    localStorage.setItem(`search_settings_${searchToSave.id}`, JSON.stringify(searchSettings.value))
 
     alert(isNewSearch.value ? 'Поиск создан!' : 'Изменения сохранены!')
     router.push('/dashboard')
@@ -601,7 +609,6 @@ const saveSearch = async () => {
   }
 }
 
-// Удаление
 const deleteSearch = () => {
   if (confirm('Удалить этот поиск?')) {
     const savedSearches = localStorage.getItem('user_searches')
@@ -610,30 +617,26 @@ const deleteSearch = () => {
       const filtered = searches.filter((s: SearchData) => s.id !== searchData.value.id)
       localStorage.setItem('user_searches', JSON.stringify(filtered))
 
-      // Удаляем фильтры
       localStorage.removeItem(`search_filters_${searchData.value.id}`)
+      localStorage.removeItem(`search_settings_${searchData.value.id}`)
     }
     router.push('/dashboard')
   }
 }
 
-// Закрытие dropdown при клике вне его
 const handleClickOutside = (event: MouseEvent) => {
   const target = event.target as HTMLElement
   const dropdownContainer = target.closest('.relative .bg-white\\/10')
 
-  // Если клик был не внутри dropdown контейнера
   if (!dropdownContainer) {
     showTariffDropdown.value = false
   }
 }
 
-// Инициализация
 onMounted(() => {
   loadSearchData()
   document.addEventListener('click', handleClickOutside)
 
-  // Загружаем сохранённый тариф
   const savedTariff = localStorage.getItem('selectedTariff')
   if (savedTariff) {
     selectedTariff.value = savedTariff
@@ -642,12 +645,14 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Стиль для левой колонки */
-.lg\:w-80 {
-  width: 320px; /* 20rem */
+.lg\:w-85 {
+  width: 340px;
 }
 
-/* Анимация спиннера */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -656,26 +661,13 @@ onMounted(() => {
     transform: rotate(360deg);
   }
 }
-.animate-spin {
-  animation: spin 1s linear infinite;
+
+.rotate-180 {
+  transform: rotate(180deg);
 }
 
-/* Кастомные стили для текстовых полей */
-input,
-textarea,
-select {
-  transition: all 0.2s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  box-shadow: 0 0 0 3px rgba(36, 138, 227, 0.1);
-}
-
-/* Адаптивность */
 @media (max-width: 1024px) {
-  .lg\:w-80 {
+  .lg\:w-85 {
     width: 100%;
   }
 
@@ -685,8 +677,17 @@ select:focus {
   }
 }
 
-/* Стили для dropdown */
-.rotate-180 {
-  transform: rotate(180deg);
+/* Дополнительные стили для выпадающего списка */
+.selected-tariff {
+  border-color: #248ae3 !important;
+  background: linear-gradient(90deg, #248ae3 0%, #1a6bb8 100%) !important;
+}
+
+.glass-for-tariffs {
+  background: linear-gradient(
+    90deg,
+    rgba(185, 185, 185, 0.2) 0%,
+    rgba(153, 153, 153, 0.08) 100%
+  ) !important;
 }
 </style>
