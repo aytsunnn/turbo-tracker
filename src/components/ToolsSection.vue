@@ -1,79 +1,3 @@
-<template>
-  <div class="w-full justify-center items-center flex flex-col gap-1">
-    <p class="font-montserrat text-4xl">НАСТРОЙКИ ВАШИХ ПОИСКОВ:</p>
-    <p class="font-montserrat text-2xl pb-6">
-      Здесь вы можете добавлять и редактировать нужные вам поиски
-    </p>
-    <div class="w-full bg-glass2 px-10 py-8 justify-center">
-      <!-- Список карточек поисков -->
-      <div class="space-y-4">
-        <!-- Карточка поиска -->
-        <div
-          v-for="search in searches"
-          :key="search.id"
-          class="bg-glass-active w-full px-15 py-8 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 lg:gap-0"
-        >
-          <div class="flex flex-col">
-            <p class="font-montserrat font-semibold text-xl lg:text-2xl">{{ search.name }}</p>
-            <div
-              class="flex flex-col lg:flex-row gap-2 lg:gap-4 font-montserrat font-light text-lg lg:text-xl mt-2"
-            >
-              <p>Тариф: {{ search.tariff }}</p>
-              <p>До {{ formatDate(search.expires) }}</p>
-            </div>
-          </div>
-          <div class="flex flex-wrap gap-3 lg:gap-10 mt-4 lg:mt-0">
-            <!-- Заменяем кнопку на router-link -->
-            <router-link
-              :to="`/edit-search/${search.id}`"
-              class="font-montserrat font-light text-base lg:text-2xl hover:text-blue-custom transition px-3 py-2 lg:px-0 lg:py-0"
-            >
-              Редактировать
-            </router-link>
-            <button
-              @click="extendSearch(search.id)"
-              class="font-montserrat font-light text-base lg:text-2xl hover:text-blue-custom transition px-3 py-2 lg:px-0 lg:py-0"
-            >
-              Продлить
-            </button>
-            <button
-              @click="deleteSearch(search.id)"
-              class="font-montserrat font-light text-base lg:text-2xl hover:text-red-400 transition px-3 py-2 lg:px-0 lg:py-0"
-            >
-              Удалить
-            </button>
-          </div>
-        </div>
-
-        <!-- Если нет поисков -->
-        <div
-          v-if="searches.length === 0"
-          class="bg-glass-active w-full px-15 py-8 flex flex-col items-center justify-center text-center"
-        >
-          <p class="font-montserrat font-light text-2xl text-gray-400">
-            У вас пока нет сохраненных поисков
-          </p>
-          <p class="font-montserrat font-light text-xl text-gray-500 mt-2">
-            Нажмите кнопку ниже, чтобы добавить первый поиск
-          </p>
-        </div>
-      </div>
-
-      <!-- Кнопка добавления -->
-      <div class="flex justify-center mt-6">
-        <!-- Добавляем новую кнопку для создания поиска -->
-        <router-link
-          to="/edit-search/new"
-          class="bg-blue-custom p-4 rounded-full flex items-center justify-center text-lg lg:text-xl font-inter font-semibold gap-4 w-full lg:w-91.5 h-16 lg:h-21 hover:opacity-90 transition"
-        >
-          <img src="/images/plus.svg" alt="plus" class="w-7 h-7" />
-          Добавить поиск
-        </router-link>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -90,7 +14,6 @@ interface SearchItem {
 
 const router = useRouter()
 
-// Начальные данные (заглушка для LocalStorage)
 const defaultSearches: SearchItem[] = [
   {
     id: 1,
@@ -123,14 +46,12 @@ const defaultSearches: SearchItem[] = [
 
 const searches = ref<SearchItem[]>([])
 
-// Загрузка данных из LocalStorage
 const loadSearches = () => {
   try {
     const savedSearches = localStorage.getItem('user_searches')
     if (savedSearches) {
       searches.value = JSON.parse(savedSearches)
     } else {
-      // Если нет сохраненных данных, используем заглушку
       searches.value = [...defaultSearches]
       saveSearches()
     }
@@ -140,7 +61,6 @@ const loadSearches = () => {
   }
 }
 
-// Сохранение в LocalStorage
 const saveSearches = () => {
   try {
     localStorage.setItem('user_searches', JSON.stringify(searches.value))
@@ -149,21 +69,17 @@ const saveSearches = () => {
   }
 }
 
-// Продление поиска
 const extendSearch = (id: number) => {
   const search = searches.value.find((s) => s.id === id)
   if (search) {
     const newDate = new Date(search.expires)
-    newDate.setMonth(newDate.getMonth() + 1) // Добавляем месяц
-
+    newDate.setMonth(newDate.getMonth() + 1)
     search.expires = newDate.toISOString()
     saveSearches()
-
     console.log(`Поиск "${search.name}" продлен до ${formatDate(search.expires)}`)
   }
 }
 
-// Удаление поиска
 const deleteSearch = (id: number) => {
   if (confirm('Вы уверены, что хотите удалить этот поиск?')) {
     const searchIndex = searches.value.findIndex((s) => s.id === id)
@@ -176,7 +92,6 @@ const deleteSearch = (id: number) => {
   }
 }
 
-// Форматирование даты для отображения
 const formatDate = (dateString: string) => {
   try {
     const date = new Date(dateString)
@@ -192,20 +107,97 @@ const formatDate = (dateString: string) => {
   }
 }
 
-// Инициализация
 onMounted(() => {
   loadSearches()
 })
-
-// Экспортируем функции для использования в других компонентах (опционально)
-defineExpose({
-  searches,
-  deleteSearch,
-})
 </script>
 
+<template>
+  <div class="w-full justify-center items-center flex flex-col gap-1 sm:gap-2 md:gap-3">
+    <p class="font-montserrat text-2xl sm:text-3xl md:text-4xl text-center px-4">
+      НАСТРОЙКИ ВАШИХ ПОИСКОВ:
+    </p>
+    <p class="font-montserrat text-lg sm:text-xl md:text-2xl pb-4 sm:pb-6 text-center px-4">
+      Здесь вы можете добавлять и редактировать нужные вам поиски
+    </p>
+    <div
+      class="w-full bg-glass2 px-4 sm:px-6 md:px-8 lg:px-10 py-6 sm:py-8 justify-center rounded-xl sm:rounded-2xl"
+    >
+      <!-- Список карточек поисков -->
+      <div class="space-y-3 sm:space-y-4">
+        <!-- Карточка поиска -->
+        <div
+          v-for="search in searches"
+          :key="search.id"
+          class="bg-glass-active w-full px-4 sm:px-6 md:px-8 lg:px-15 py-4 sm:py-6 md:py-8 flex flex-col lg:flex-row justify-between items-center gap-3 sm:gap-4 md:gap-6 lg:gap-0 rounded-lg sm:rounded-xl"
+        >
+          <div class="flex flex-col w-full lg:w-auto">
+            <p class="font-montserrat font-semibold text-lg sm:text-xl md:text-2xl">
+              {{ search.name }}
+            </p>
+            <div
+              class="flex flex-col sm:flex-row gap-1 sm:gap-2 lg:gap-4 font-montserrat font-light text-sm sm:text-base md:text-lg lg:text-xl mt-1 sm:mt-2"
+            >
+              <p>Тариф: {{ search.tariff }}</p>
+              <p class="hidden sm:block lg:hidden xl:block">•</p>
+              <p>До {{ formatDate(search.expires) }}</p>
+            </div>
+          </div>
+          <div
+            class="flex flex-wrap gap-2 sm:gap-3 lg:gap-10 mt-2 sm:mt-4 lg:mt-0 w-full lg:w-auto"
+          >
+            <router-link
+              :to="`/edit-search/${search.id}`"
+              class="font-montserrat font-light text-sm sm:text-base md:text-lg lg:text-2xl hover:text-blue-custom transition px-2 sm:px-3 py-1 sm:py-2 lg:px-0 lg:py-0"
+            >
+              Редактировать
+            </router-link>
+            <button
+              @click="extendSearch(search.id)"
+              class="font-montserrat font-light text-sm sm:text-base md:text-lg lg:text-2xl hover:text-blue-custom transition px-2 sm:px-3 py-1 sm:py-2 lg:px-0 lg:py-0"
+            >
+              Продлить
+            </button>
+            <button
+              @click="deleteSearch(search.id)"
+              class="font-montserrat font-light text-sm sm:text-base md:text-lg lg:text-2xl hover:text-red-400 transition px-2 sm:px-3 py-1 sm:py-2 lg:px-0 lg:py-0"
+            >
+              Удалить
+            </button>
+          </div>
+        </div>
+
+        <!-- Если нет поисков -->
+        <div
+          v-if="searches.length === 0"
+          class="bg-glass-active w-full px-4 sm:px-6 md:px-15 py-6 sm:py-8 flex flex-col items-center justify-center text-center rounded-lg sm:rounded-xl"
+        >
+          <p class="font-montserrat font-light text-lg sm:text-xl md:text-2xl text-gray-400">
+            У вас пока нет сохраненных поисков
+          </p>
+          <p
+            class="font-montserrat font-light text-base sm:text-lg md:text-xl text-gray-500 mt-1 sm:mt-2"
+          >
+            Нажмите кнопку ниже, чтобы добавить первый поиск
+          </p>
+        </div>
+      </div>
+
+      <!-- Кнопка добавления -->
+      <div class="flex justify-center mt-4 sm:mt-6">
+        <router-link
+          to="/edit-search/new"
+          class="bg-blue-custom p-3 sm:p-4 rounded-full flex items-center justify-center text-base sm:text-lg md:text-xl font-inter font-semibold gap-2 sm:gap-3 lg:gap-4 w-full lg:w-91.5 h-12 sm:h-14 md:h-16 lg:h-21 hover:opacity-90 transition shadow-lg hover:shadow-xl"
+        >
+          <img src="/images/plus.svg" alt="plus" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
+          Добавить поиск
+        </router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
 <style scoped>
-/* Адаптивные стили для карточек */
 .bg-glass-active {
   backdrop-filter: blur(25.2px);
   border-radius: 20px;
@@ -217,16 +209,16 @@ defineExpose({
   border: 1px solid rgba(255, 255, 255, 0.79);
 }
 
-/* Адаптивность */
-@media (max-width: 1024px) {
+/* Адаптивные радиусы */
+@media (max-width: 640px) {
   .bg-glass-active {
-    padding: 2rem 1.5rem;
+    border-radius: 12px;
   }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 641px) and (max-width: 1024px) {
   .bg-glass-active {
-    padding: 1.5rem 1rem;
+    border-radius: 16px;
   }
 }
 </style>
