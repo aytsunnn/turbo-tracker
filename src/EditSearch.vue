@@ -38,7 +38,7 @@
               <button
                 type="button"
                 @click="showLinkHelp = !showLinkHelp"
-                class="text-blue-custom hover:underline text-sm mt-2 flex items-center gap-1"
+                class="text-blue-custom text-sm mt-2 flex items-center gap-1"
               >
                 Где взять ссылку?
               </button>
@@ -73,116 +73,90 @@
           <div class="flex flex-col lg:flex-row gap-6">
             <div class="lg:w-80 justify-start items-end flex flex-col">
               <p class="block font-montserrat font-semibold text-xl">Выберите тариф:</p>
-              <router-link
-                to="/tariffs"
-                class="text-blue-custom hover:underline text-sm mt-2 flex items-center gap-1"
-              >
+              <button class="text-blue-custom text-sm mt-2 flex items-center gap-1">
                 Подробнее про тарифы
-              </router-link>
+              </button>
             </div>
 
             <div class="flex-1 relative">
-              <!-- Основной контейнер -->
               <div
                 class="w-full bg-white/10 border border-white/20 rounded-2xl overflow-hidden transition-all duration-300"
               >
-                <!-- Верхняя часть -->
+                <!-- ЗАГОЛОВОК (только здесь клик переключает dropdown) -->
                 <div
+                  class="px-6 py-5 hover:bg-white/5 transition cursor-pointer"
                   @click="showTariffDropdown = !showTariffDropdown"
-                  class="px-6 py-5 text-white flex items-center cursor-pointer hover:bg-white/5 transition"
-                  :class="{
-                    'justify-between': !showTariffDropdown,
-                    'justify-end': showTariffDropdown,
-                  }"
                 >
-                  <!-- Текст показываем только когда dropdown закрыт -->
-                  <div v-if="!showTariffDropdown" class="flex flex-col">
-                    <span class="font-inter font-medium text-lg">
-                      {{ selectedTariffName }}
-                    </span>
-                  </div>
-
-                  <!-- Стрелка всегда -->
-                  <img
-                    src="/images/keyboard_arrow_up.svg"
-                    class="w-9.5 h-9.5 transition-transform duration-300"
-                    :style="{ transform: showTariffDropdown ? 'rotate(180deg)' : 'rotate(0deg)' }"
-                    alt="arrow"
-                  />
-                </div>
-
-                <!-- Контент с плавной анимацией -->
-                <div
-                  ref="dropdownContent"
-                  class="transition-all duration-300 overflow-hidden"
-                  :style="{
-                    'max-height': showTariffDropdown ? getCalculatedHeight + 'px' : '0px',
-                    opacity: showTariffDropdown ? '1' : '0',
-                  }"
-                >
-                  <!-- Список тарифов -->
-                  <div class="px-6 py-4 space-y-6">
-                    <!-- Группы тарифов -->
-                    <div
-                      v-for="tariffGroup in tariffGroups"
-                      :key="tariffGroup.id"
-                      class="space-y-3"
-                    >
-                      <!-- Заголовок группы и описание -->
-                      <div class="gap-2 flex flex-row items-center">
-                        <h3 class="font-inter font-semibold text-white text-lg">
-                          {{ tariffGroup.name }}
-                        </h3>
-                        <p class="text-gray-400 text-sm mt-1">{{ tariffGroup.description }}</p>
-                      </div>
-
-                      <!-- Тарифы в группе -->
-                      <div class="space-y-2">
-                        <div
-                          v-for="tariff in tariffGroup.tariffs"
-                          :key="tariff.id"
-                          @click="tempSelectedTariff = tariff.id"
-                          class="p-4 rounded-xl border cursor-pointer transition flex justify-between items-center"
-                          :class="{
-                            'border-blue-custom bg-blue-custom/10':
-                              tempSelectedTariff === tariff.id,
-                            'border-white/20 hover:border-white/40':
-                              tempSelectedTariff !== tariff.id,
-                          }"
-                        >
-                          <!-- Название тарифа слева -->
-                          <div class="font-inter font-semibold text-white text-base">
-                            {{ tariff.name }}
-                          </div>
-
-                          <!-- Стоимость справа -->
-                          <div class="font-inter font-bold text-white text-lg">
-                            {{ tariff.price }}
-                          </div>
-                        </div>
-                      </div>
+                  <div class="flex items-center justify-between gap-4">
+                    <div class="font-montserrat font-medium text-xl">
+                      {{ selectedTariffName || 'Выберите тариф' }}
                     </div>
 
-                    <!-- Примечание -->
-                    <div class="p-4 bg-white/5 rounded-xl border border-white/10">
-                      <p class="text-gray-400 text-sm">
-                        <span class="font-semibold text-white">Хотите изменить тариф?</span><br />
-                        Напишите в нашу поддержку. Вы можете перейти на другой тариф в любой момент
-                        – мы пересчитаем неиспользованные дни и сделаем перерасчёт оплаты.
+                    <img
+                      src="/images/keyboard_arrow_up.svg"
+                      class="w-9.5 h-9.5 shrink-0 transition-transform duration-300"
+                      :class="{ 'rotate-180': showTariffDropdown }"
+                      alt="arrow"
+                    />
+                  </div>
+                </div>
+
+                <!-- КОНТЕНТ DROPDOWN (клик здесь не закрывает dropdown) -->
+                <div v-if="showTariffDropdown" class="px-6 pb-5 space-y-6">
+                  <div v-for="tariffGroup in tariffGroups" :key="tariffGroup.id" class="space-y-3">
+                    <div class="flex font-montserrat flex-row gap-2 items-baseline">
+                      <p class="font-extrabold text-xl">
+                        {{ tariffGroup.name }}
+                      </p>
+                      <p class="text-sm text-white/69">
+                        {{ tariffGroup.description }}
                       </p>
                     </div>
 
-                    <!-- Кнопка выбора тарифа -->
-                    <div class="pt-2">
-                      <button
-                        @click="applyTariff"
-                        :disabled="!tempSelectedTariff"
-                        class="w-full py-3 bg-blue-custom hover:bg-blue-600 text-white font-inter font-semibold rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    <div class="space-y-2">
+                      <div
+                        v-for="tariff in tariffGroup.tariffs"
+                        :key="tariff.id"
+                        @click="tempSelectedTariff = tariff.id"
+                        class="p-4 cursor-pointer transition flex justify-between items-center"
+                        :class="{
+                          'selected-tariff': tempSelectedTariff === tariff.id,
+                          'glass-for-tariffs': tempSelectedTariff !== tariff.id,
+                        }"
                       >
-                        Выбрать тариф
-                      </button>
+                        <div class="font-inter font-semibold text-base">
+                          {{ tariff.name }}
+                        </div>
+                        <div class="font-inter font-bold text-lg">
+                          {{ tariff.price }}
+                        </div>
+                      </div>
                     </div>
                   </div>
+
+                  <p class="font-montserrat font-medium text-sm">
+                    <span class="font-extrabold text-xl">Хотите изменить тариф?</span><br />
+                    Напишите в нашу
+                    <a
+                      href="mailto:support@example.com"
+                      class="font-semibold text-sm"
+                      style="color: #248ae3"
+                      @click.stop
+                      target="_blank"
+                    >
+                      поддержку </a
+                    ><br />
+                    Вы можете перейти на другой тариф в любой момент — мы пересчитаем
+                    неиспользованные дни и сделаем перерасчёт оплаты.
+                  </p>
+
+                  <button
+                    @click="applyTariff"
+                    :disabled="!tempSelectedTariff"
+                    class="w-full py-3 bg-blue-custom hover:bg-blue-600 text-white font-inter font-semibold rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Выбрать тариф
+                  </button>
                 </div>
               </div>
             </div>
@@ -193,52 +167,52 @@
           <!-- 4. Целевые слова -->
           <div class="flex flex-col lg:flex-row gap-6">
             <!-- Левая колонка -->
-            <div class="lg:w-80 justify-start items-end flex flex-col">
+            <div class="lg:w-80 justify-start items-end flex flex-col text-right">
               <p class="block font-montserrat font-semibold text-xl">Целевые слова:</p>
+              <p class="text-xl text-white/50 mt-1">
+                Cлова, которые должны присутствовать в объявлениях
+              </p>
             </div>
 
             <!-- Правая колонка -->
             <div class="flex-1">
               <textarea
                 v-model="searchFilters.includeKeywords"
-                class="w-full min-h-32 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom"
-                placeholder="Вставляйте целевые слова через запятую: собственник, владелец..."
+                class="w-full min-h-22 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:text-white/28 placeholder:text-xl"
+                placeholder="Вставляйте целевые слова через запятую: собственник, владелец...."
               ></textarea>
-              <p class="text-gray-400 text-sm mt-2">
-                Слова, которые должны присутствовать в объявлениях
-              </p>
             </div>
           </div>
 
           <!-- 5. Минус слова -->
           <div class="flex flex-col lg:flex-row gap-6">
             <!-- Левая колонка -->
-            <div class="lg:w-80 justify-start items-end flex flex-col">
+            <div class="lg:w-80 justify-start items-end flex flex-col text-right">
               <p class="block font-montserrat font-semibold text-xl">Минус слова:</p>
+              <p class="text-xl text-white/50 mt-1">
+                Слова, которые должны отсутствовать в объявлениях
+              </p>
             </div>
 
             <!-- Правая колонка -->
             <div class="flex-1">
               <textarea
                 v-model="searchFilters.excludeKeywords"
-                class="w-full min-h-32 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom"
+                class="w-full min-h-22 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:text-white/28 placeholder:text-xl"
                 placeholder="Вставляйте минус слова через запятую: автосалон, риелтор, магазин..."
               ></textarea>
-              <p class="text-gray-400 text-sm mt-2">
-                Слова, которые должны отсутствовать в объявлениях
-              </p>
             </div>
           </div>
 
           <!-- 6. Блокировка продавцов -->
           <div class="flex flex-col lg:flex-row gap-6">
             <!-- Левая колонка -->
-            <div class="lg:w-80 justify-start items-end flex flex-col">
+            <div class="lg:w-80 justify-start items-end flex flex-col text-right">
               <p class="block font-montserrat font-semibold text-xl">Заблокировать продавца:</p>
               <button
                 type="button"
                 @click="showSellerHelp = !showSellerHelp"
-                class="text-blue-custom hover:underline text-sm mt-2 flex items-center gap-1"
+                class="text-blue-custom text-sm mt-2 flex items-center gap-1 self-end"
               >
                 Где взять ID продавца?
               </button>
@@ -248,7 +222,7 @@
             <div class="flex-1">
               <textarea
                 v-model="searchFilters.blockedSellers"
-                class="w-full min-h-32 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom"
+                class="w-full min-h-22 bg-white/10 border border-white/20 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-blue-custom placeholder:font-montserrat placeholder:text-white/28 placeholder:text-xl"
                 placeholder="Вставляйте ID продавцов через запятую: 123456789, 987654321..."
               ></textarea>
             </div>
@@ -646,7 +620,10 @@ const deleteSearch = () => {
 // Закрытие dropdown при клике вне его
 const handleClickOutside = (event: MouseEvent) => {
   const target = event.target as HTMLElement
-  if (!target.closest('.relative')) {
+  const dropdownContainer = target.closest('.relative .bg-white\\/10')
+
+  // Если клик был не внутри dropdown контейнера
+  if (!dropdownContainer) {
     showTariffDropdown.value = false
   }
 }
