@@ -4,7 +4,7 @@
     <div class="w-full max-w-full sm:max-w-550 mx-auto px-4 sm:px-0">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
         <div
-          class="w-full h-48 sm:h-60 md:h-64 lg:h-72 xl:h-80 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 relative rounded-xl sm:rounded-2xl"
+          class="w-full cursor-pointer h-48 sm:h-60 md:h-64 lg:h-72 xl:h-80 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 relative rounded-xl sm:rounded-2xl"
           style="
             background-color: rgba(255, 255, 255, 0.13);
             border: 1px solid rgba(255, 255, 255, 0.85);
@@ -68,22 +68,22 @@
         </div>
       </div>
       <div class="grid grid-cols-1 gap-4 sm:gap-6 mt-8 sm:mt-10">
-        <div
+        <button
           class="w-full h-16 sm:h-20 md:h-22 lg:h-25.5 custom-gradient flex items-center gap-3 sm:gap-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl"
         >
           <div
             class="bg-blue-custom w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-15 lg:h-15 rounded-lg sm:rounded-xl md:rounded-2xl"
           />
           <p class="font-montserrat text-lg sm:text-xl md:text-2xl lg:text-3xl">Тарифы</p>
-        </div>
-        <div
+        </button>
+        <button
           class="w-full h-16 sm:h-20 md:h-22 lg:h-25.5 custom-gradient flex items-center gap-3 sm:gap-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl"
         >
           <div
             class="bg-blue-custom w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-15 lg:h-15 rounded-lg sm:rounded-xl md:rounded-2xl"
           />
           <p class="font-montserrat text-lg sm:text-xl md:text-2xl lg:text-3xl">Удалить аккаунт</p>
-        </div>
+        </button>
       </div>
     </div>
   </div>

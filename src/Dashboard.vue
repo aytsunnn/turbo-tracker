@@ -35,6 +35,5 @@ import { toolsShadows } from './components/shadows/tools'
 <style scoped>
 .page-root {
   position: relative;
-  min-height: 3000px;
 }
 </style>

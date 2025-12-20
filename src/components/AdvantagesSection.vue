@@ -4,7 +4,7 @@
       НАШИ ПРЕИМУЩЕСТВА
     </p>
 
-    <div class="flex flex-col lg:flex-row justify-center gap-4 lg:gap-8 w-full">
+    <div class="flex flex-col lg:flex-row justify-center gap-4 lg:gap-16 w-full">
       <div
         class="bg-glass w-full lg:w-182.5 h-auto lg:h-105 p-6 lg:p-8 flex flex-col lg:flex-row justify-between items-start"
       >
@@ -28,7 +28,7 @@
         </p>
       </div>
 
-      <div class="flex flex-col gap-4 lg:gap-8 w-full lg:w-auto">
+      <div class="flex flex-col gap-4 lg:gap-10 w-full lg:w-auto">
         <div class="bg-glass1 w-full lg:w-182.5 h-auto lg:h-47.5 py-5 lg:py-5 px-6">
           <p class="font-montserrat font-bold italic text-xl lg:text-3xl pb-2">
             Мониторинг разных площадок
