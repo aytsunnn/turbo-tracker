@@ -1,149 +1,151 @@
 <template>
-  <div class="min-h-screen bg-dark-custom">
-    <Header />
+  <div class="scale-75-wrapper">
+    <div class="min-h-screen bg-dark-custom">
+      <Header />
 
-    <div class="mx-40 px-4 lg:px-44 py-8">
-      <div class="mb-8 text-center">
-        <p class="font-montserrat text-3xl lg:text-4xl font-bold mb-2">
-          {{ isNewSearch ? 'Создание нового поиска' : 'РЕДАКТИРОВАНИЕ ПОИСКА:' }}
-        </p>
+      <div class="w-full max-w-7xl mx-auto flex flex-col items-center justify-center py-8">
+        <div class="mb-8 text-center">
+          <p class="font-montserrat text-3xl lg:text-4xl font-bold mb-2">
+            {{ isNewSearch ? 'Создание нового поиска' : 'РЕДАКТИРОВАНИЕ ПОИСКА:' }}
+          </p>
+        </div>
+
+        <div class="glass-gradient p-6 lg:p-25">
+          <form @submit.prevent="saveSearch" class="space-y-8">
+            <!-- 1. Название поиска -->
+            <TextField
+              :modelValue="searchData.name"
+              @update:modelValue="searchData.name = $event"
+              label="Название поиска:"
+              placeholder="Введите любое название..."
+            />
+
+            <TextField
+              :modelValue="searchData.url"
+              @update:modelValue="searchData.url = $event"
+              label="Вставьте ссылку на поиск:"
+              type="url"
+              placeholder="https://www.avito.ru/..."
+              help-text="Где взять ссылку?"
+              :show-help="showLinkHelp"
+              @update:showHelp="showLinkHelp = $event"
+            />
+
+            <!-- Всплывающая подсказка для ссылки -->
+            <HelpTooltip :show="showLinkHelp">
+              1. Откройте Avito<br />
+              2. Настройте нужные фильтры<br />
+              3. Скопируйте URL из адресной строки<br />
+              4. Вставьте в поле справа
+            </HelpTooltip>
+
+            <!-- 3. Выбор тарифа -->
+            <TariffDropdown
+              v-model:selected-tariff="selectedTariff"
+              :tariff-groups="tariffGroups"
+              v-model:show-dropdown="showTariffDropdown"
+            />
+
+            <div class="ml-9 h-px bg-white/10"></div>
+
+            <!-- 4. Целевые слова -->
+            <TextAreaField
+              v-model="searchFilters.includeKeywords"
+              label="Целевые слова:"
+              description="Cлова, которые должны присутствовать в объявлениях"
+              placeholder="Вставляйте целевые слова через запятую: собственник, владелец...."
+            />
+
+            <!-- 5. Минус слова -->
+            <TextAreaField
+              v-model="searchFilters.excludeKeywords"
+              label="Минус слова:"
+              description="Слова, которые должны отсутствовать в объявлениях"
+              placeholder="Вставляйте минус слова через запятую: автосалон, риелтор, магазин..."
+            />
+
+            <!-- 6. Блокировка продавцов -->
+            <TextAreaField
+              v-model="searchFilters.blockedSellers"
+              label="Заблокировать продавца:"
+              description=""
+              placeholder="Вставляйте ID продавцов через запятую: 123456789, 987654321..."
+              help-text="Где взять ID продавца?"
+              v-model:show-help="showSellerHelp"
+            />
+
+            <!-- Всплывающая подсказка для продавца -->
+            <HelpTooltip :show="showSellerHelp">
+              1. Откройте профиль продавца на Avito<br />
+              2. В URL будет ID вида "user/123456789"<br />
+              3. Скопируйте только цифры<br />
+              4. Вставьте в поле справа
+            </HelpTooltip>
+
+            <!-- Обертка для всех трех переключателей -->
+            <div class="mt-27.5 space-y-8">
+              <SwitchField
+                v-model="searchSettings.isNewAdsOnly"
+                title="Искать только новые объявления"
+                description="Если галочка нажата, будет присылать только новые объявления, которые ранее не публиковались."
+              />
+
+              <SwitchField
+                v-model="searchSettings.showReducedPrice"
+                title="Показывать объявления со сниженной ценой"
+                description="Если стоит галочка Программа также будет присылать объявления, которые поданы уже не в первый раз, но цена на них снижена."
+              />
+
+              <SwitchField
+                v-model="searchSettings.hideHighViews"
+                title="Не показывать объявления с просмотрами > 50"
+                description="программа проверяет просмотры объявления, и если у него более 50 просмотров, то не присылает его."
+              />
+            </div>
+
+            <!-- Кнопка сохранения -->
+            <div class="flex justify-center mt-6 sm:mt-8">
+              <button
+                :disabled="isLoading"
+                @click="saveSearch"
+                class="bg-blue-custom hover:bg-blue-600 rounded-full w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:w-91.5 h-12 sm:h-14 md:h-16 lg:h-20.75 py-3 px-6 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl active:shadow-md transform hover:-translate-y-0.5 active:translate-y-0 mx-auto"
+              >
+                <div class="flex items-center justify-center gap-2 sm:gap-3">
+                  <svg
+                    v-if="isLoading"
+                    class="animate-spin h-4 w-4 sm:h-5 sm:w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  <p
+                    class="font-inter font-semibold text-sm sm:text-base md:text-lg lg:text-xl whitespace-nowrap"
+                  >
+                    {{ isNewSearch ? 'Создать поиск' : 'Сохранить и подключить' }}
+                  </p>
+                </div>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
-      <div class="glass-gradient p-6 lg:p-25">
-        <form @submit.prevent="saveSearch" class="space-y-8">
-          <!-- 1. Название поиска -->
-          <TextField
-            :modelValue="searchData.name"
-            @update:modelValue="searchData.name = $event"
-            label="Название поиска:"
-            placeholder="Введите любое название..."
-          />
-
-          <TextField
-            :modelValue="searchData.url"
-            @update:modelValue="searchData.url = $event"
-            label="Вставьте ссылку на поиск:"
-            type="url"
-            placeholder="https://www.avito.ru/..."
-            help-text="Где взять ссылку?"
-            :show-help="showLinkHelp"
-            @update:showHelp="showLinkHelp = $event"
-          />
-
-          <!-- Всплывающая подсказка для ссылки -->
-          <HelpTooltip :show="showLinkHelp">
-            1. Откройте Avito<br />
-            2. Настройте нужные фильтры<br />
-            3. Скопируйте URL из адресной строки<br />
-            4. Вставьте в поле справа
-          </HelpTooltip>
-
-          <!-- 3. Выбор тарифа -->
-          <TariffDropdown
-            v-model:selected-tariff="selectedTariff"
-            :tariff-groups="tariffGroups"
-            v-model:show-dropdown="showTariffDropdown"
-          />
-
-          <div class="ml-9 h-px bg-white/10"></div>
-
-          <!-- 4. Целевые слова -->
-          <TextAreaField
-            v-model="searchFilters.includeKeywords"
-            label="Целевые слова:"
-            description="Cлова, которые должны присутствовать в объявлениях"
-            placeholder="Вставляйте целевые слова через запятую: собственник, владелец...."
-          />
-
-          <!-- 5. Минус слова -->
-          <TextAreaField
-            v-model="searchFilters.excludeKeywords"
-            label="Минус слова:"
-            description="Слова, которые должны отсутствовать в объявлениях"
-            placeholder="Вставляйте минус слова через запятую: автосалон, риелтор, магазин..."
-          />
-
-          <!-- 6. Блокировка продавцов -->
-          <TextAreaField
-            v-model="searchFilters.blockedSellers"
-            label="Заблокировать продавца:"
-            description=""
-            placeholder="Вставляйте ID продавцов через запятую: 123456789, 987654321..."
-            help-text="Где взять ID продавца?"
-            v-model:show-help="showSellerHelp"
-          />
-
-          <!-- Всплывающая подсказка для продавца -->
-          <HelpTooltip :show="showSellerHelp">
-            1. Откройте профиль продавца на Avito<br />
-            2. В URL будет ID вида "user/123456789"<br />
-            3. Скопируйте только цифры<br />
-            4. Вставьте в поле справа
-          </HelpTooltip>
-
-          <!-- Обертка для всех трех переключателей -->
-          <div class="mt-27.5 space-y-8">
-            <SwitchField
-              v-model="searchSettings.isNewAdsOnly"
-              title="Искать только новые объявления"
-              description="Если галочка нажата, будет присылать только новые объявления, которые ранее не публиковались."
-            />
-
-            <SwitchField
-              v-model="searchSettings.showReducedPrice"
-              title="Показывать объявления со сниженной ценой"
-              description="Если стоит галочка Программа также будет присылать объявления, которые поданы уже не в первый раз, но цена на них снижена."
-            />
-
-            <SwitchField
-              v-model="searchSettings.hideHighViews"
-              title="Не показывать объявления с просмотрами > 50"
-              description="программа проверяет просмотры объявления, и если у него более 50 просмотров, то не присылает его."
-            />
-          </div>
-
-          <!-- Кнопка сохранения -->
-          <div class="flex justify-center mt-6 sm:mt-8">
-            <button
-              :disabled="isLoading"
-              @click="saveSearch"
-              class="bg-blue-custom hover:bg-blue-600 rounded-full w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:w-91.5 h-12 sm:h-14 md:h-16 lg:h-20.75 py-3 px-6 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl active:shadow-md transform hover:-translate-y-0.5 active:translate-y-0 mx-auto"
-            >
-              <div class="flex items-center justify-center gap-2 sm:gap-3">
-                <svg
-                  v-if="isLoading"
-                  class="animate-spin h-4 w-4 sm:h-5 sm:w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    class="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    stroke-width="4"
-                  ></circle>
-                  <path
-                    class="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                <p
-                  class="font-inter font-semibold text-sm sm:text-base md:text-lg lg:text-xl whitespace-nowrap"
-                >
-                  {{ isNewSearch ? 'Создать поиск' : 'Сохранить и подключить' }}
-                </p>
-              </div>
-            </button>
-          </div>
-        </form>
-      </div>
+      <Footer />
     </div>
-
-    <Footer />
   </div>
 </template>
 
@@ -374,6 +376,16 @@ onMounted(() => {
 <style scoped>
 .lg\:w-85 {
   width: 340px;
+}
+
+.scale-75-wrapper {
+  width: 133.33% !important;
+  height: 133.33% !important;
+  transform: scale(0.75) !important;
+  transform-origin: 0 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
 }
 
 .mx-40 {

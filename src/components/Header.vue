@@ -11,7 +11,6 @@ const isDashboard = computed(() => {
     route.path === '/dashboard' ||
     route.path.startsWith('/edit-search') ||
     route.path.startsWith('/search/') ||
-    // добавьте другие пути личного кабинета при необходимости
     false
   )
 })

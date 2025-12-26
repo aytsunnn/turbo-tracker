@@ -33,26 +33,31 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="page-root">
-    <BackgroundShadows :circles="homeShadows" :offset-x="0" :offset-y="0" />
-
-    <Header />
-
-    <main class="relative z-10">
-      <HeroSection />
-      <StatsSection />
-      <ForWhomSection />
-      <MonitoringSection />
-      <AdvantagesSection />
-      <TariffsSection />
-      <FAQSection />
-    </main>
-
-    <Footer />
+  <div class="scale-75-wrapper">
+    <!-- Ваш контент -->
+    <div class="page-root">
+      <BackgroundShadows :circles="homeShadows" :offset-x="0" :offset-y="0" />
+      <Header />
+      <main class="relative z-10">
+        <HeroSection />
+        <StatsSection />
+        <ForWhomSection />
+        <MonitoringSection />
+        <AdvantagesSection />
+        <TariffsSection />
+        <FAQSection />
+      </main>
+      <Footer />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.page-root {
+  min-height: 100vh;
+  position: relative;
+}
+
 #for-whom,
 #monitoring,
 #tariffs,
@@ -67,10 +72,5 @@ onMounted(() => {
   #contacts {
     scroll-margin-top: 60px;
   }
-}
-
-.page-root {
-  min-height: 100vh;
-  position: relative;
 }
 </style>

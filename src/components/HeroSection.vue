@@ -36,7 +36,11 @@
         </div>
       </div>
 
-      <img class="w-48 lg:w-173 h-auto lg:h-196 mt-8 lg:mt-0" src="/images/bg-phone.svg" alt="bg-phone" />
+      <img
+        class="w-48 lg:w-173 h-auto lg:h-196 mt-8 lg:mt-0"
+        src="/images/bg-phone.svg"
+        alt="bg-phone"
+      />
     </div>
   </div>
 </template>

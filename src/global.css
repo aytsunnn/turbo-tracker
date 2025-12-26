@@ -17,6 +17,16 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+.scale-75-wrapper {
+  width: 133.33vw !important;
+  height: 133.33vh !important;
+  transform: scale(0.75) !important;
+  transform-origin: 0 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
 /* Стили для стеклянного эффекта */
 .bg-glass {
   background-color: rgb(255 255 255 / 13%);

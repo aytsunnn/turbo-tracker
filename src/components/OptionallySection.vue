@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col items-center gap-6 sm:gap-8">
+  <div class="w-full flex flex-col items-center gap-6 sm:gap-8">
     <p class="font-montserrat text-2xl sm:text-3xl md:text-4xl text-center px-4">ДОПОЛНИТЕЛЬНО</p>
-    <div class="w-full max-w-full sm:max-w-550 mx-auto px-4 sm:px-0">
+    <div class="w-full">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
         <div
           class="w-full cursor-pointer h-48 sm:h-60 md:h-64 lg:h-72 xl:h-80 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 relative rounded-xl sm:rounded-2xl"

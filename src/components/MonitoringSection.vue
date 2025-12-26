@@ -17,89 +17,95 @@
 
       <!-- Стеклянный блок поверх картинки -->
       <div
-        class="bg-glass2 px-4 lg:px-62 py-6 lg:py-30 w-full max-w-full lg:max-w-full h-auto lg:h-172 flex flex-col justify-between relative z-10"
+        class="bg-glass2 px-4 items-center py-6 lg:py-30 w-full max-w-full lg:max-w-full h-auto lg:h-172 flex flex-col justify-between relative z-10"
       >
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-21">
-          <!-- Card 1 -->
-          <div class="flex items-start gap-3 lg:gap-4">
-            <img class="w-10" src="/images/filter.svg" alt="filter" />
-            <div class="flex-1">
-              <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">Гибкие фильтры</p>
-              <p class="font-montserrat font-light text-sm lg:text-base">
-                Устанавливай фильтры под<br />
-                любой свой запрос и получай<br />
-                только релевантные результаты
-              </p>
+        <div class="w-348 h-88 flex justify-center items-center">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 lg:gap-x-52 gap-y-4 lg:gap-y-15">
+            <!-- Card 1 -->
+            <div class="flex items-start gap-3 lg:gap-4">
+              <img class="w-10" src="/images/filter.svg" alt="filter" />
+              <div class="flex-1">
+                <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">
+                  Гибкие фильтры
+                </p>
+                <p class="font-montserrat font-light text-sm lg:text-base">
+                  Устанавливай фильтры под<br />
+                  любой свой запрос и получай<br />
+                  только релевантные результаты
+                </p>
+              </div>
             </div>
-          </div>
 
-          <!-- Card 2 -->
-          <div class="flex items-start gap-3 lg:gap-4">
-            <img class="w-10" src="/images/basket.svg" alt="notification" />
-            <div class="flex-1">
-              <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">
-                Умное исключение
-              </p>
-              <p class="font-montserrat font-light text-sm lg:text-base">
-                Исключай бесполезные<br />
-                объявления с помощью<br />
-                настраиваемых стоп-слов
-              </p>
+            <!-- Card 2 -->
+            <div class="flex items-start gap-3 lg:gap-4">
+              <img class="w-10" src="/images/basket.svg" alt="notification" />
+              <div class="flex-1">
+                <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">
+                  Умное исключение
+                </p>
+                <p class="font-montserrat font-light text-sm lg:text-base">
+                  Исключай бесполезные<br />
+                  объявления с помощью<br />
+                  настраиваемых стоп-слов
+                </p>
+              </div>
             </div>
-          </div>
 
-          <!-- Card 3 -->
-          <div class="flex items-start gap-3 lg:gap-4">
-            <img class="w-10" src="/images/star.svg" alt="search" />
-            <div class="flex-1">
-              <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">Только новое</p>
-              <p class="font-montserrat font-light text-sm lg:text-base">
-                Ищи только новые<br />
-                объявления, без повторов и<br />
-                поднятых за деньги
-              </p>
+            <!-- Card 3 -->
+            <div class="flex items-start gap-3 lg:gap-4">
+              <img class="w-10" src="/images/star.svg" alt="search" />
+              <div class="flex-1">
+                <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">Только новое</p>
+                <p class="font-montserrat font-light text-sm lg:text-base">
+                  Ищи только новые<br />
+                  объявления, без повторов и<br />
+                  поднятых за деньги
+                </p>
+              </div>
             </div>
-          </div>
 
-          <!-- Card 4 -->
-          <div class="flex items-start gap-3 lg:gap-4">
-            <img class="w-10" src="/images/block.svg" alt="location" />
-            <div class="flex-1">
-              <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">Блок продавцов</p>
-              <p class="font-montserrat font-light text-sm lg:text-base">
-                Исключи нежелательных<br />
-                продавцов из результатов<br />
-                поиска
-              </p>
+            <!-- Card 4 -->
+            <div class="flex items-start gap-3 lg:gap-4">
+              <img class="w-10" src="/images/block.svg" alt="location" />
+              <div class="flex-1">
+                <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">
+                  Блок продавцов
+                </p>
+                <p class="font-montserrat font-light text-sm lg:text-base">
+                  Исключи нежелательных<br />
+                  продавцов из результатов<br />
+                  поиска
+                </p>
+              </div>
             </div>
-          </div>
 
-          <!-- Card 5 -->
-          <div class="flex items-start gap-3 lg:gap-4">
-            <img class="w-10" src="/images/description.svg" alt="schedule" />
-            <div class="flex-1">
-              <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">
-                Детальное описание
-              </p>
-              <p class="font-montserrat font-light text-sm lg:text-base">
-                Получай подробное описание<br />
-                объявлений для быстрого<br />
-                принятия решений
-              </p>
+            <!-- Card 5 -->
+            <div class="flex items-start gap-3 lg:gap-4">
+              <img class="w-10" src="/images/description.svg" alt="schedule" />
+              <div class="flex-1">
+                <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">
+                  Детальное описание
+                </p>
+                <p class="font-montserrat font-light text-sm lg:text-base">
+                  Получай подробное описание<br />
+                  объявлений для быстрого<br />
+                  принятия решений
+                </p>
+              </div>
             </div>
-          </div>
 
-          <!-- Card 6 -->
-          <div class="flex items-start gap-3 lg:gap-4">
-            <img class="w-10" src="/images/team.svg" alt="analytics" />
-            <div class="flex-1">
-              <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">
-                Командный доступ
-              </p>
-              <p class="font-montserrat font-light text-sm lg:text-base">
-                Получай объявления вместе<br />
-                с коллегами в общем чате
-              </p>
+            <!-- Card 6 -->
+            <div class="flex items-start gap-3 lg:gap-4">
+              <img class="w-10" src="/images/team.svg" alt="analytics" />
+              <div class="flex-1">
+                <p class="font-montserrat font-bold italic text-lg lg:text-xl mb-2">
+                  Командный доступ
+                </p>
+                <p class="font-montserrat font-light text-sm lg:text-base">
+                  Получай объявления вместе<br />
+                  с коллегами в общем чате
+                </p>
+              </div>
             </div>
           </div>
         </div>
