@@ -378,16 +378,6 @@ onMounted(() => {
   width: 340px;
 }
 
-.scale-75-wrapper {
-  width: 133.33% !important;
-  height: 133.33% !important;
-  transform: scale(0.75) !important;
-  transform-origin: 0 0 !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-}
-
 .mx-40 {
   margin-left: 1rem;
   margin-right: 1rem;
