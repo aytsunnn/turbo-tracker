@@ -64,12 +64,12 @@ onMounted(() => {
   scroll-margin-top: 80px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   #for-whom,
   #monitoring,
   #tariffs,
   #contacts {
-    scroll-margin-top: 60px;
+    scroll-margin-top: 400px;
   }
 }
 </style>
