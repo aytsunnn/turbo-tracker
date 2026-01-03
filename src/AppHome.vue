@@ -34,7 +34,6 @@ onMounted(() => {
 
 <template>
   <div class="scale-75-wrapper">
-    <!-- Ваш контент -->
     <div class="page-root">
       <BackgroundShadows :circles="homeShadows" :offset-x="0" :offset-y="0" />
       <Header />

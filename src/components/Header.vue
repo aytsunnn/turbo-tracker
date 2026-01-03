@@ -5,7 +5,6 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
-// Изменяем логику: проверяем не только /dashboard, но и другие страницы личного кабинета
 const isDashboard = computed(() => {
   return (
     route.path === '/dashboard' ||
@@ -52,22 +51,22 @@ const isMobileMenuOpen = ref(false)
 
 <template>
   <header
-    class="w-full h-auto bg-transparent lg:mt-8 lg:h-23.5 lg:py-0 py-4 px-4 lg:px-10 backdrop-blur-sm z-50"
+    class="w-full h-auto bg-transparent lg:mt-8 md:mt-12 lg:h-23.5 md:h-13.25 lg:py-0 py-4 px-4 lg:px-10 md:px-13.25 backdrop-blur-sm z-50"
   >
     <div class="container mx-auto flex justify-between items-center">
       <!-- Логотип -->
       <div class="flex flex-row gap-3 items-center cursor-pointer" @click="goHome">
-        <img src="/images/Logo.svg" alt="Logo" class="w-10 lg:w-auto" />
-        <div class="flex flex-col font-bold font-montserrat text-xl lg:text-2xl">
+        <img src="/images/Logo.svg" alt="Logo" class="w-10 md:w-13 lg:w-23.5" />
+        <div class="flex flex-col font-bold font-montserrat text-xl md:text-lg lg:text-2xl">
           <p>TURBO</p>
           <p>TRACER</p>
         </div>
       </div>
 
-      <!-- Десктопное меню для главной страницы -->
+      <!-- Десктопное меню для главной страницы (от 768px и выше) -->
       <nav
         v-if="!isDashboard"
-        class="hidden lg:flex flex-row items-center gap-8 lg:gap-12 font-inter text-base lg:text-lg"
+        class="hidden md:flex flex-row items-center gap-6 lg:gap-12 font-inter text-base lg:text-lg"
       >
         <a
           href="#top"
@@ -108,10 +107,10 @@ const isMobileMenuOpen = ref(false)
         </button>
       </nav>
 
-      <!-- Десктопное меню для dashboard и редактирования поиска -->
+      <!-- Десктопное меню для dashboard и редактирования поиска (от 768px и выше) -->
       <nav
         v-else
-        class="hidden lg:flex flex-row items-center gap-8 lg:gap-12 font-inter text-base lg:text-lg"
+        class="hidden md:flex flex-row items-center gap-6 lg:gap-12 font-inter text-base lg:text-lg"
       >
         <router-link to="/" class="hover:text-blue-custom transition whitespace-nowrap text-white">
           ГЛАВНАЯ
@@ -138,10 +137,10 @@ const isMobileMenuOpen = ref(false)
         </button>
       </nav>
 
-      <!-- Мобильное меню: кнопка бургер -->
+      <!-- Мобильное меню: кнопка бургер (только до 768px) -->
       <button
         @click="isMobileMenuOpen = !isMobileMenuOpen"
-        class="lg:hidden flex flex-col justify-center items-center w-10 h-10"
+        class="md:hidden flex flex-col justify-center items-center w-10 h-10"
         aria-label="Меню"
       >
         <span
@@ -168,11 +167,11 @@ const isMobileMenuOpen = ref(false)
       </button>
     </div>
 
-    <!-- Мобильное меню: выпадающий список для главной страницы -->
+    <!-- Мобильное меню: выпадающий список для главной страницы (только до 768px) -->
     <div
       v-if="!isDashboard"
       :class="[
-        'lg:hidden overflow-hidden transition-all duration-300',
+        'md:hidden overflow-hidden transition-all duration-300',
         isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0',
       ]"
     >
@@ -217,11 +216,11 @@ const isMobileMenuOpen = ref(false)
       </div>
     </div>
 
-    <!-- Мобильное меню: выпадающий список для dashboard и редактирования поиска -->
+    <!-- Мобильное меню: выпадающий список для dashboard и редактирования поиска (только до 768px) -->
     <div
       v-else
       :class="[
-        'lg:hidden overflow-hidden transition-all duration-300',
+        'md:hidden overflow-hidden transition-all duration-300',
         isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0',
       ]"
     >
