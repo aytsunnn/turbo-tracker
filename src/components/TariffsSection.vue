@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div id="tariffs" class="mt-8 lg:mt-57.5 mb-8 lg:mb-20 px-4 lg:px-0">
-      <p class="font-montserrat font-semibold text-center text-2xl lg:text-4xl">
+    <div id="tariffs" class="mt-26.75 md:mt-20.75 lg:mt-57.5 mb-3 lg:mb-20 px-7 md:px-14 lg:px-0">
+      <p class="font-montserrat font-semibold text-center text-sm md:text-xl lg:text-4xl">
         ВЫБЕРИТЕ СВОЙ ТАРИФ
       </p>
-      <p class="text-center font-montserrat font-light text-base lg:text-2xl mt-2 lg:mt-0">
+      <p
+        class="text-center font-montserrat font-light text-[10px] md:text-sm lg:text-2xl mt-2 lg:mt-0"
+      >
         Вы получаете доступ на 31 день, даже если это февраль!<br />
         Все доступные тарифы доступны в нашем телеграм канале
       </p>
@@ -14,7 +16,7 @@
       <div class="flex flex-col lg:flex-row justify-center items-center gap-2 lg:gap-0">
         <!-- Free Card -->
         <div
-          class="w-full lg:w-123 h-auto lg:h-148 rounded-2xl p-6 lg:p-8 flex flex-col justify-between relative overflow-hidden"
+          class="w-full md:w-108.25 lg:w-123 h-auto lg:h-148 rounded-2xl md:py-6 md:px-8 lg:p-8 flex flex-col justify-between relative overflow-hidden"
           style="
             backdrop-filter: blur(25.2px);
             border: 1px rgba(255, 255, 255, 0.01);
@@ -24,15 +26,15 @@
           "
         >
           <div>
-            <p class="font-montserrat font-bold italic text-2xl lg:text-4xl mb-6 lg:mb-8">
+            <p class="font-montserrat font-bold italic text-xl lg:text-4xl mb-6 md:mb-0 lg:mb-8">
               БЕСПЛАТНЫЙ
             </p>
             <div class="flex flex-row items-start gap-2">
-              <p class="font-montserrat text-4xl lg:text-5xl mb-6 lg:mb-8">0₽</p>
-              <p class="font-montserrat text-lg lg:text-xl mt-2">НА 24 ЧАСА</p>
+              <p class="font-montserrat text-2xl lg:text-5xl mb-2 lg:mb-8">0₽</p>
+              <p class="font-montserrat text-sm lg:text-xl lg:mt-2">НА 24 ЧАСА</p>
             </div>
-            <div class="w-full lg:w-90 h-0.5 bg-white/20 mb-4" />
-            <ul class="font-montserrat text-base lg:text-xl space-y-3 lg:space-y-4">
+            <div class="w-full md:w-39 lg:w-90 h-0.5 bg-white/20 mb-4" />
+            <ul class="font-montserrat text-sm lg:text-xl space-y-3 lg:space-y-4">
               <li class="flex items-start lg:items-center gap-3">
                 <img class="check-style" src="/images/check.svg" alt="check" />
                 <span>Скорость мониторинга 1 секунда</span>
@@ -69,9 +71,9 @@
           class="w-full lg:w-139 h-auto lg:h-172 p-6 lg:p-8 bg-glass flex flex-col justify-between relative overflow-hidden mt-6 lg:mt-0"
           style="backdrop-filter: blur(25.2px); border: 1px solid rgba(255, 255, 255, 0.01)"
         >
-          <div class="absolute top-6 lg:top-10 -right-8 lg:-right-16">
+          <div class="absolute top-6 lg:top-10 -right-10 lg:-right-16">
             <div
-              class="bg-[#D9D9D9] text-blue-custom font-montserrat font-bold text-xl lg:text-3xl px-16 lg:px-24 py-1 lg:py-2 transform rotate-40 shadow-md"
+              class="bg-[#D9D9D9] text-blue-custom font-montserrat font-bold text-lg lg:text-3xl px-20 lg:px-24 py-1 lg:py-2 transform rotate-40 shadow-md"
             >
               -20%
             </div>
