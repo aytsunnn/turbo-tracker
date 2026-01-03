@@ -3,7 +3,9 @@
     id="for-whom"
     class="mt-18 md:mt-30.5 lg:mt-53.5 flex flex-col items-center px-7 md:px-14 lg:px-0"
   >
-    <p class="font-montserrat text-2xl lg:text-4xl font-regular text-center mb-8 lg:mb-12">
+    <p
+      class="font-montserrat text-sm md:text-xl lg:text-4xl font-regular text-center mb-8 lg:mb-12"
+    >
       ДЛЯ КОГО НАШ СЕРВИС?
     </p>
 
