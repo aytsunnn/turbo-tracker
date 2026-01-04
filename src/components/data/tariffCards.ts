@@ -13,7 +13,11 @@ export interface TariffCard {
   discountText?: string
   features: TariffFeature[]
   buttonText: string
-  buttonHasLineBreak?: boolean
+  buttonLines?: {
+    lg?: string[] // Для lg версии
+    md?: string[] // Для md версии  
+    sm?: string[] // Для sm версии
+  }
   style: 'free' | 'premium' | 'other'
 }
 
@@ -29,8 +33,12 @@ export const tariffCards: TariffCard[] = [
       { text: 'Уведомления в Telegram' },
       { text: 'Сервис поддержки' },
     ],
-    buttonText: 'Подключить\nБесплатно',
-    buttonHasLineBreak: true,
+    buttonText: 'Подключить Бесплатно',
+    buttonLines: {
+      lg: ['Подключить', 'Бесплатно'], // 2 строки для lg
+      md: ['Подключить Бесплатно'],    // 1 строка для md
+      sm: ['Подключить', 'Бесплатно']  // 2 строки для sm
+    },
     style: 'free',
   },
   {
