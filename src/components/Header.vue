@@ -5,6 +5,7 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
+// Изменяем логику: проверяем не только /dashboard, но и другие страницы личного кабинета
 const isDashboard = computed(() => {
   return (
     route.path === '/dashboard' ||
@@ -51,22 +52,22 @@ const isMobileMenuOpen = ref(false)
 
 <template>
   <header
-    class="w-full h-auto bg-transparent lg:mt-8 md:mt-12 lg:h-23.5 md:h-13.25 lg:py-0 py-7 px-7 lg:px-10 md:px-13.25 backdrop-blur-sm z-50"
+    class="w-full h-auto bg-transparent lg:mt-8 lg:h-23.5 lg:py-0 py-8 px-4 lg:px-10 backdrop-blur-sm z-50"
   >
-    <div class="container mx-auto flex justify-between items-center md:items-start lg:items-center">
+    <div class="container mx-auto flex justify-between items-center">
       <!-- Логотип -->
-      <div class="flex flex-row items-center cursor-pointer" @click="goHome">
-        <img src="/images/Logo.svg" alt="Logo" class="w-8.25 md:w-13 lg:w-23.5" />
-        <div class="flex flex-col font-bold font-montserrat text-xs md:text-lg lg:text-2xl">
+      <div class="flex flex-row gap-3 items-center cursor-pointer" @click="goHome">
+        <img src="/images/Logo.svg" alt="Logo" class="w-10 lg:w-auto" />
+        <div class="flex flex-col font-bold font-montserrat text-xl lg:text-2xl">
           <p>TURBO</p>
           <p>TRACER</p>
         </div>
       </div>
 
-      <!-- Десктопное меню для главной страницы (от 768px и выше) -->
+      <!-- Десктопное меню для главной страницы -->
       <nav
         v-if="!isDashboard"
-        class="hidden md:flex flex-row items-center lg:items-center gap-6 lg:gap-12 md:gap-4 font-inter text-base lg:text-lg md:text-xs"
+        class="hidden lg:flex flex-row items-center gap-8 lg:gap-12 font-inter text-base lg:text-lg"
       >
         <a
           href="#top"
@@ -100,17 +101,17 @@ const isMobileMenuOpen = ref(false)
         >
         <button
           @click="goToDashboard"
-          class="bg-blue-custom rounded-2xl items-center justify-center flex flex-row gap-2 lg:gap-4 md:gap-0 w-28 lg:w-38.5 md:w-17.5 h-10 lg:h-14 md:h-5 px-4 hover:opacity-90 transition"
+          class="bg-blue-custom rounded-2xl items-center justify-center flex flex-row gap-2 lg:gap-4 w-28 lg:w-38.5 h-10 lg:h-14 px-4 hover:opacity-90 transition"
         >
-          <img class="w-5 lg:w-7 hidden lg:block" src="/images/user.svg" alt="user" />
-          <span class="font-inter font-semibold text-sm md:text-xs lg:text-xl">Войти</span>
+          <img class="w-5 lg:w-7" src="/images/user.svg" alt="user" />
+          <span class="font-inter font-semibold text-sm lg:text-xl">Войти</span>
         </button>
       </nav>
 
-      <!-- Десктопное меню для dashboard и редактирования поиска (от 768px и выше) -->
+      <!-- Десктопное меню для dashboard и редактирования поиска -->
       <nav
         v-else
-        class="hidden md:flex flex-row items-center lg:items-center gap-6 lg:gap-12 md:gap-4 font-inter text-base lg:text-lg md:text-xs"
+        class="hidden lg:flex flex-row items-center gap-8 lg:gap-12 font-inter text-base lg:text-lg"
       >
         <router-link to="/" class="hover:text-blue-custom transition whitespace-nowrap text-white">
           ГЛАВНАЯ
@@ -130,29 +131,29 @@ const isMobileMenuOpen = ref(false)
 
         <button
           @click="goHome"
-          class="bg-blue-custom rounded-2xl items-center justify-center flex flex-row gap-2 lg:gap-4 md:gap-0 w-28 lg:w-38.5 md:w-17.5 h-10 lg:h-14 md:h-5 px-4 hover:opacity-90 transition"
+          class="bg-blue-custom rounded-2xl items-center justify-center flex flex-row gap-2 lg:gap-4 w-28 lg:w-38.5 h-10 lg:h-14 px-4 hover:opacity-90 transition"
         >
-          <img class="w-5 lg:w-7 hidden lg:block" src="/images/user.svg" alt="user" />
-          <span class="font-inter font-semibold text-sm md:text-xs lg:text-xl">Выйти</span>
+          <img class="w-5 lg:w-7" src="/images/user.svg" alt="user" />
+          <span class="font-inter font-semibold text-sm lg:text-xl">Выйти</span>
         </button>
       </nav>
 
-      <!-- Мобильное меню: кнопка бургер (только до 768px) -->
+      <!-- Мобильное меню: кнопка бургер -->
       <button
         @click="isMobileMenuOpen = !isMobileMenuOpen"
-        class="md:hidden flex flex-col justify-center items-center w-10 h-10"
+        class="lg:hidden flex flex-col justify-center items-center w-10 h-10"
         aria-label="Меню"
       >
         <span
           :class="[
-            'w-8 h-0.5 transition-all duration-300',
+            'w-6 h-0.5 transition-all duration-300',
             isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : '',
             isDashboard ? 'bg-white' : 'bg-white',
           ]"
         ></span>
         <span
           :class="[
-            'w-7 h-0.5 my-1.5 transition-all duration-300',
+            'w-6 h-0.5 my-1.5 transition-all duration-300',
             isMobileMenuOpen ? 'opacity-0' : '',
             isDashboard ? 'bg-white' : 'bg-white',
           ]"
@@ -160,102 +161,103 @@ const isMobileMenuOpen = ref(false)
         <span
           :class="[
             'w-6 h-0.5 transition-all duration-300',
-            isMobileMenuOpen ? '-rotate-45 -translate-y-1.5 w-8' : '',
+            isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : '',
             isDashboard ? 'bg-white' : 'bg-white',
           ]"
         ></span>
       </button>
     </div>
 
-    <!-- Мобильное меню: выпадающий список для главной страницы (только до 768px) -->
+    <!-- Мобильное меню: выпадающий список для главной страницы -->
     <div
       v-if="!isDashboard"
       :class="[
-        ' overflow-hidden transition-all duration-300',
+        'lg:hidden overflow-hidden transition-all duration-300',
         isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0',
       ]"
     >
-      <div class="container mx-auto py-4 flex flex-col items-center gap-2">
+      <div class="container mx-auto py-4 flex flex-col items-center gap-4">
         <a
           href="#top"
           @click="scrollToTop"
-          class="text-sm hover:text-blue-custom transition py-2 text-white"
+          class="text-lg hover:text-blue-custom transition py-2 text-white"
           >ГЛАВНАЯ</a
         >
         <a
           href="#for-whom"
           @click="(e) => scrollToSection(e, 'for-whom')"
-          class="text-sm hover:text-blue-custom transition py-2 text-white"
+          class="text-lg hover:text-blue-custom transition py-2 text-white"
           >ДЛЯ КОГО</a
         >
         <a
           href="#monitoring"
           @click="(e) => scrollToSection(e, 'monitoring')"
-          class="text-sm hover:text-blue-custom transition py-2 text-white"
+          class="text-lg hover:text-blue-custom transition py-2 text-white"
           >МОНИТОРИНГ</a
         >
         <a
           href="#tariffs"
           @click="(e) => scrollToSection(e, 'tariffs')"
-          class="text-sm hover:text-blue-custom transition py-2 text-white"
+          class="text-lg hover:text-blue-custom transition py-2 text-white"
           >ТАРИФЫ</a
         >
         <a
           href="#contacts"
           @click="(e) => scrollToSection(e, 'contacts')"
-          class="text-sm hover:text-blue-custom transition py-2 text-white"
+          class="text-lg hover:text-blue-custom transition py-2 text-white"
           >КОНТАКТЫ</a
         >
         <button
           @click="goToDashboard"
           class="bg-blue-custom rounded-2xl items-center justify-center flex flex-row gap-2 w-full max-w-xs h-12 mt-2 px-4 hover:opacity-90 transition"
         >
-          <span class="font-inter font-semibold text-base">Войти</span>
+          <img class="w-6" src="/images/user.svg" alt="user" />
+          <span class="font-inter font-semibold text-base text-white">Войти</span>
         </button>
       </div>
     </div>
 
-    <!-- Мобильное меню: выпадающий список для dashboard и редактирования поиска (только до 768px) -->
+    <!-- Мобильное меню: выпадающий список для dashboard и редактирования поиска -->
     <div
       v-else
       :class="[
-        'md:hidden overflow-hidden transition-all duration-300',
+        'lg:hidden overflow-hidden transition-all duration-300',
         isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0',
       ]"
     >
-      <div class="container mx-auto py-4 flex flex-col items-center gap-2">
+      <div class="container mx-auto py-4 flex flex-col items-center gap-4">
         <router-link
           to="/"
           @click="isMobileMenuOpen = false"
-          class="text-sm transition py-2 text-white w-full text-center"
+          class="text-lg hover:text-blue-custom transition py-2 text-white w-full text-center"
         >
           ГЛАВНАЯ
         </router-link>
         <router-link
           to="/dashboard"
           @click="isMobileMenuOpen = false"
-          class="text-sm transition py-2 text-white w-full text-center"
+          class="text-lg hover:text-blue-custom transition py-2 text-white w-full text-center"
         >
           МОНИТОРИНГИ
         </router-link>
         <a
           href="#tariff"
           @click="isMobileMenuOpen = false"
-          class="text-sm transition py-2 text-white w-full text-center"
+          class="text-lg hover:text-blue-custom transition py-2 text-white w-full text-center"
         >
           ТАРИФ
         </a>
         <a
           href="#settings"
           @click="isMobileMenuOpen = false"
-          class="text-sm transition py-2 text-white w-full text-center"
+          class="text-lg hover:text-blue-custom transition py-2 text-white w-full text-center"
         >
           НАСТРОЙКИ
         </a>
         <a
           href="#profile"
           @click="isMobileMenuOpen = false"
-          class="text-sm transition py-2 text-white w-full text-center"
+          class="text-lg hover:text-blue-custom transition py-2 text-white w-full text-center"
         >
           ПРОФИЛЬ
         </a>
@@ -264,7 +266,7 @@ const isMobileMenuOpen = ref(false)
           @click="goHome"
           class="bg-blue-custom rounded-2xl items-center justify-center flex flex-row gap-2 w-full max-w-xs h-12 mt-2 px-4 hover:opacity-90 transition"
         >
-          <span class="font-inter font-semibold text-base">Выйти</span>
+          <span class="font-inter font-semibold text-base text-white">Выйти</span>
         </button>
       </div>
     </div>

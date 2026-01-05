@@ -38,4 +38,14 @@ import { toolsShadows } from './components/shadows/tools'
 .page-root {
   position: relative;
 }
+
+.scale-75-wrapper {
+  width: 133.33% !important;
+  height: 133.33% !important;
+  transform: scale(0.75) !important;
+  transform-origin: 0 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+}
 </style>
