@@ -21,7 +21,7 @@ import { toolsShadows } from './components/shadows/tools'
 
       <!-- Content -->
       <div
-        class="relative mx-auto px-4 lg:px-0 lg:w-7xl gap-8 lg:gap-24 flex flex-col items-center justify-center"
+        class="relative px-7 md:px-14 lg:px-130 w-full gap-8 lg:gap-24 flex flex-col items-center justify-center"
       >
         <WelcomeSection class="mt-8 sm:mt-12 md:mt-16 lg:mt-21" />
         <ToolsSection />

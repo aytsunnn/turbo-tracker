@@ -113,16 +113,25 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full justify-center items-center flex flex-col gap-1 sm:gap-2 md:gap-3">
-    <p class="font-montserrat text-2xl sm:text-3xl md:text-4xl text-center px-4">
-      НАСТРОЙКИ ВАШИХ ПОИСКОВ:
-    </p>
-    <p class="font-montserrat text-lg sm:text-xl md:text-2xl pb-4 sm:pb-6 text-center px-4">
-      Здесь вы можете добавлять и редактировать нужные вам поиски
-    </p>
+  <div class="w-full justify-center items-center flex flex-col">
+    <!-- Заголовок для десктопа (lg и выше) -->
+    <div class="hidden lg:block w-full text-center mb-4">
+      <p class="font-montserrat text-4xl px-4">НАСТРОЙКИ ВАШИХ ПОИСКОВ:</p>
+      <p class="font-montserrat text-2xl pb-6 px-4">
+        Здесь вы можете добавлять и редактировать нужные вам поиски
+      </p>
+    </div>
+
     <div
-      class="w-full bg-glass2 px-4 sm:px-6 md:px-8 lg:px-10 py-6 sm:py-8 justify-center rounded-xl sm:rounded-2xl"
+      class="w-full bg-glass2 px-7 md:px-14 lg:px-10 py-6 sm:py-8 justify-center rounded-xl sm:rounded-2xl"
     >
+      <div class="lg:hidden mb-4 sm:mb-6 text-center">
+        <p class="font-montserrat text-base md:text-3xl mb-2 sm:mb-3">НАСТРОЙКИ ВАШИХ ПОИСКОВ:</p>
+        <p class="font-montserrat text-xs md:text-sm pb-2 sm:pb-4">
+          Здесь вы можете добавлять и редактировать нужные вам поиски
+        </p>
+      </div>
+
       <!-- Список карточек поисков -->
       <div class="space-y-3 sm:space-y-4">
         <!-- Карточка поиска -->
@@ -132,11 +141,11 @@ onMounted(() => {
           class="bg-glass-active w-full px-4 sm:px-6 md:px-8 lg:px-15 py-4 sm:py-6 md:py-8 flex flex-col lg:flex-row justify-between items-center gap-3 sm:gap-4 md:gap-6 lg:gap-0 rounded-lg sm:rounded-xl"
         >
           <div class="flex flex-col w-full lg:w-auto">
-            <p class="font-montserrat font-semibold text-lg sm:text-xl md:text-2xl">
+            <p class="font-montserrat font-semibold text-base md:text-xl lg:text-2xl">
               {{ search.name }}
             </p>
             <div
-              class="flex flex-col sm:flex-row gap-1 sm:gap-2 lg:gap-4 font-montserrat font-light text-sm sm:text-base md:text-lg lg:text-xl mt-1 sm:mt-2"
+              class="flex flex-col sm:flex-row gap-1 sm:gap-2 lg:gap-4 font-montserrat font-light text-xs md:text-base lg:text-xl mt-1 sm:mt-2"
             >
               <p>Тариф: {{ search.tariff }}</p>
               <p class="hidden sm:block lg:hidden xl:block">•</p>
@@ -144,23 +153,23 @@ onMounted(() => {
             </div>
           </div>
           <div
-            class="flex flex-wrap gap-2 sm:gap-3 lg:gap-10 mt-2 sm:mt-4 lg:mt-0 w-full lg:w-auto"
+            class="flex flex-wrap gap-2 md:gap-4 lg:gap-10 mt-2 md:mt-4 lg:mt-0 w-full lg:w-auto"
           >
             <router-link
               :to="`/edit-search/${search.id}`"
-              class="font-montserrat font-light text-sm sm:text-base md:text-lg lg:text-2xl hover:text-blue-custom transition px-2 sm:px-3 py-1 sm:py-2 lg:px-0 lg:py-0"
+              class="font-montserrat font-light text-xs md:text-base lg:text-xl hover:text-blue-custom transition"
             >
               Редактировать
             </router-link>
             <button
               @click="extendSearch(search.id)"
-              class="font-montserrat font-light text-sm sm:text-base md:text-lg lg:text-2xl hover:text-blue-custom transition px-2 sm:px-3 py-1 sm:py-2 lg:px-0 lg:py-0"
+              class="font-montserrat font-light text-xs md:text-base lg:text-xl hover:text-blue-custom transition"
             >
               Продлить
             </button>
             <button
               @click="deleteSearch(search.id)"
-              class="font-montserrat font-light text-sm sm:text-base md:text-lg lg:text-2xl hover:text-red-400 transition px-2 sm:px-3 py-1 sm:py-2 lg:px-0 lg:py-0"
+              class="font-montserrat font-light text-xs md:text-base lg:text-xl hover:text-red-400 transition"
             >
               Удалить
             </button>
@@ -187,9 +196,9 @@ onMounted(() => {
       <div class="flex justify-center mt-4 sm:mt-6">
         <router-link
           to="/edit-search/new"
-          class="bg-blue-custom p-3 sm:p-4 rounded-full flex items-center justify-center text-base sm:text-lg md:text-xl font-inter font-semibold gap-2 sm:gap-3 lg:gap-4 w-full lg:w-91.5 h-12 sm:h-14 md:h-16 lg:h-21 hover:opacity-90 transition shadow-lg hover:shadow-xl"
+          class="bg-blue-custom p-3 sm:p-4 rounded-full flex items-center justify-center text-base md:text-lg lg:text-xl font-inter font-semibold gap-2 sm:gap-3 lg:gap-4 w-full lg:w-91.5 h-12 sm:h-14 md:h-16 lg:h-21 hover:opacity-90 transition shadow-lg hover:shadow-xl"
         >
-          <img src="/images/plus.svg" alt="plus" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
+          <img src="/images/plus.svg" alt="plus" class="w-4 h-4 md:w-5 md:h-5 lg:w-7 lg:h-7" />
           Добавить поиск
         </router-link>
       </div>

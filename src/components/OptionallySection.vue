@@ -1,10 +1,10 @@
 <template>
   <div class="w-full flex flex-col items-center gap-6 sm:gap-8">
-    <p class="font-montserrat text-2xl sm:text-3xl md:text-4xl text-center px-4">ДОПОЛНИТЕЛЬНО</p>
+    <p class="font-montserrat text-base md:text-3xl lg:text-4xl text-center px-4">ДОПОЛНИТЕЛЬНО</p>
     <div class="w-full">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
         <div
-          class="w-full cursor-pointer h-48 sm:h-60 md:h-64 lg:h-72 xl:h-80 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 relative rounded-xl sm:rounded-2xl"
+          class="w-full cursor-pointer h-48 md:h-76 lg:h-72 xl:h-80 px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 relative rounded-xl sm:rounded-2xl"
           style="
             background-color: rgba(255, 255, 255, 0.13);
             border: 1px solid rgba(255, 255, 255, 0.85);
@@ -13,7 +13,7 @@
             border-radius: 20px;
           "
         >
-          <p class="font-montserrat text-xl sm:text-2xl md:text-3xl font-semibold mb-2 sm:mb-4">
+          <p class="font-montserrat text-xl md:text-2xl lg:text-3xl font-semibold mb-2 sm:mb-4">
             Инструкция
           </p>
           <img
@@ -28,12 +28,10 @@
             class="w-full h-28 sm:h-32 md:h-35 bg-glass-custom relative flex items-center px-4 sm:px-6 md:px-10 rounded-xl sm:rounded-2xl"
           >
             <div class="flex flex-col items-start text-left w-full">
-              <p class="font-montserrat font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl">
+              <p class="font-montserrat font-semibold text-base md:text-xl lg:text-3xl">
                 Остались вопросы?
               </p>
-              <p
-                class="font-montserrat font-light text-sm sm:text-base md:text-lg lg:text-xl mt-1 sm:mt-2"
-              >
+              <p class="font-montserrat font-light text-xs md:text-base lg:text-xl mt-1 sm:mt-2">
                 На них с радостью ответит наша поддержка<br class="hidden sm:block" />
                 @TurboTrackerInfo
               </p>
@@ -49,12 +47,10 @@
             class="w-full h-28 sm:h-32 md:h-35 bg-glass-custom relative flex items-center px-4 sm:px-6 md:px-10 rounded-xl sm:rounded-2xl"
           >
             <div class="flex flex-col items-start text-left w-full">
-              <p class="font-montserrat font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl">
+              <p class="font-montserrat font-semibold text-base md:text-xl lg:text-3xl">
                 Новостной канал
               </p>
-              <p
-                class="font-montserrat font-light text-sm sm:text-base md:text-lg lg:text-xl mt-1 sm:mt-2"
-              >
+              <p class="font-montserrat font-light text-xs md:text-base lg:text-xl mt-1 sm:mt-2">
                 Следите за новостями и скидками в<br class="hidden sm:block" />
                 нашем новостном канале
               </p>
@@ -72,17 +68,17 @@
           class="w-full h-16 sm:h-20 md:h-22 lg:h-25.5 custom-gradient flex items-center gap-3 sm:gap-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl"
         >
           <div
-            class="bg-blue-custom w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-15 lg:h-15 rounded-lg sm:rounded-xl md:rounded-2xl"
+            class="bg-blue-custom w-6 h-6 md:w-10 md:h-10 lg:w-15 lg:h-15 rounded-lg sm:rounded-xl md:rounded-2xl"
           />
-          <p class="font-montserrat text-lg sm:text-xl md:text-2xl lg:text-3xl">Тарифы</p>
+          <p class="font-montserrat text-base md:text-xl lg:text-3xl">Тарифы</p>
         </button>
         <button
           class="w-full h-16 sm:h-20 md:h-22 lg:h-25.5 custom-gradient flex items-center gap-3 sm:gap-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl"
         >
           <div
-            class="bg-blue-custom w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-15 lg:h-15 rounded-lg sm:rounded-xl md:rounded-2xl"
+            class="bg-blue-custom w-6 h-6 md:w-10 md:h-10 lg:w-15 lg:h-15 rounded-lg sm:rounded-xl md:rounded-2xl"
           />
-          <p class="font-montserrat text-lg sm:text-xl md:text-2xl lg:text-3xl">Удалить аккаунт</p>
+          <p class="font-montserrat text-base md:text-xl lg:text-3xl">Удалить аккаунт</p>
         </button>
       </div>
     </div>
