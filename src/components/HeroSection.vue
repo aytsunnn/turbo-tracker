@@ -6,7 +6,7 @@
       class="flex flex-row items-center justify-between md:gap-18 md:mt-4 lg:mt-8 lg:ml-47.5 lg:mr-12.5 w-full max-w-420"
     >
       <div class="text-left">
-        <div class="font-bold font-montserrat text-sm md:text-2xl lg:text-5xl">
+        <div class="font-bold font-montserrat text-[10px] md:text-xl lg:text-5xl">
           САМЫЙ БЫСТРЫЙ<br />
           <span class="text-blue-custom">МОНИТОРИНГ</span>
           ОБЪЯВЛЕНИЙ<br />
@@ -14,7 +14,7 @@
         </div>
 
         <div
-          class="text-[8px] md:text-sm lg:text-xl font-light font-montserrat sm:mt-2 md:mt-3 lg:mt-4"
+          class="text-[6px] md:text-xs lg:text-xl font-light font-montserrat sm:mt-2 md:mt-3 lg:mt-4"
         >
           Хватит тратить время на ручной поиск!<br />
           Получайте уведомления о новых объявлениях<br />
