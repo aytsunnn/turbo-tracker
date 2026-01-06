@@ -1,12 +1,12 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div id="top" class="flex flex-col lg:items-center px-7 md:px-14 lg:px-0">
+  <div id="top" class="w-full flex flex-col lg:items-center px-7 md:px-14 lg:px-0">
     <div
-      class="flex flex-row items-center justify-between md:gap-18 md:mt-4 lg:mt-8 lg:ml-47.5 lg:mr-12.5 w-full max-w-420"
+      class="relative flex flex-col md:flex-row md:items-center md:justify-between md:gap-18 lg:gap-54 md:mt-4 lg:mt-8 lg:ml-47.5 lg:mr-12.5 w-full max-w-420"
     >
-      <div class="text-left">
-        <div class="font-bold font-montserrat text-[10px] md:text-xl lg:text-5xl">
+      <div class="text-left z-3">
+        <div class="font-bold font-montserrat text-sm md:text-2xl lg:text-5xl">
           САМЫЙ БЫСТРЫЙ<br />
           <span class="text-blue-custom">МОНИТОРИНГ</span>
           ОБЪЯВЛЕНИЙ<br />
@@ -14,7 +14,7 @@
         </div>
 
         <div
-          class="text-[6px] md:text-xs lg:text-xl font-light font-montserrat sm:mt-2 md:mt-3 lg:mt-4"
+          class="text-[8px] md:text-sm lg:text-xl font-light font-montserrat sm:mt-2 md:mt-3 lg:mt-4"
         >
           Хватит тратить время на ручной поиск!<br />
           Получайте уведомления о новых объявлениях<br />
@@ -43,7 +43,7 @@
       </div>
 
       <img
-        class="w-56 md:w-72.75 lg:w-173 h-auto md:h-83 lg:h-196 mt-0 pr-5 md:pr-0 md:mt-6 lg:mt-0"
+        class="absolute sm:block md:static z-0 w-56 h-65 md:w-72.75 md:h-83 lg:w-173 lg:h-196 -right-12 -top-5 md:-right-14 lg:mt-0"
         src="/images/bg-phone.svg"
         alt="bg-phone"
       />
